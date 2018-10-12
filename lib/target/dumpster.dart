@@ -1,4 +1,4 @@
-import 'package:bumshakalaka/target/Target.dart';
+import 'package:bumshakalaka/target/target.dart';
 
 class Dumpster implements Target {
   @override
