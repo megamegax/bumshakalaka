@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 class TestAssetBundle extends CachingAssetBundle {
   @override
   Future<ByteData> load(String key) async {
-    if (key == 'resources/kutya.png')
+    if (key == 'resources/dog.png')
       return new ByteData.view(
           new Uint8List.fromList(utf8.encode('Hello World!')).buffer);
     return null;

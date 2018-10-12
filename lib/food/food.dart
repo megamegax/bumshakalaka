@@ -3,7 +3,8 @@ import 'package:flame/components/animation_component.dart';
 
 class Food extends AnimationComponent {
   String imagePath;
-  double speed = 0.75;
+  double speed = 10;
+  double animationSpeed = 0.75;
   int animationCount = 1;
   double imageWidth = 64.0;
   double imageHeight = 64.0;
@@ -17,6 +18,6 @@ class Food extends AnimationComponent {
     this.y = y;
     this.imagePath = imagePath;
     this.animationCount = animationCount;
-    this.animation.stepTime = speed / 7;
+    this.animation.stepTime = animationSpeed / 7;
   }
 }

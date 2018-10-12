@@ -1,6 +1,6 @@
 import 'package:bumshakalaka/target/target.dart';
 
-class Compost implements Target {
+class Compost extends Target {
   @override
   String imagePath = "compost.png";
 
@@ -12,4 +12,7 @@ class Compost implements Target {
 
   @override
   int imageWidth;
+
+  Compost(double x, double y, imagePath, animationCount)
+      : super(x, y, imagePath, animationCount);
 }

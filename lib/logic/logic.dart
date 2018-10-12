@@ -7,7 +7,7 @@ abstract class Logic {
   Duration elapsedTime;
   List<Target> targets;
   int earthState;
-
+  double foodMultiplier;
   void start();
 
   int feedFoodTarget(Target target, Food food);

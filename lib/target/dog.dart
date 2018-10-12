@@ -1,6 +1,6 @@
 import 'package:bumshakalaka/target/target.dart';
 
-class Dog implements Target {
+class Dog extends Target {
   @override
   String imagePath = "dog.png";
 
@@ -12,4 +12,7 @@ class Dog implements Target {
 
   @override
   int imageWidth;
+
+  Dog(double x, double y, imagePath, animationCount)
+      : super(x, y, imagePath, animationCount);
 }

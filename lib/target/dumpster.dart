@@ -1,6 +1,6 @@
 import 'package:bumshakalaka/target/target.dart';
 
-class Dumpster implements Target {
+class Dumpster extends Target {
   @override
   String imagePath = "dumpster.png";
 
@@ -12,4 +12,7 @@ class Dumpster implements Target {
 
   @override
   int imageWidth;
+
+  Dumpster(double x, double y, imagePath, animationCount)
+      : super(x, y, imagePath, animationCount);
 }
