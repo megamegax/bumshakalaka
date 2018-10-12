@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:bumshakalaka/game/flame_wrapper.dart';
 import 'package:bumshakalaka/game/game.dart';
+import 'package:bumshakalaka/logic/game_logic.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,7 @@ class Main {
       'green_apple.png',
       'whole_grilled_chicken.png',
     ]);
-    game = new Game();
+    game = new Game(new GameLogic());
     engine.addGestureRecognizer(new ImmediateMultiDragGestureRecognizer()
       ..onStart = (Offset event) => game.input(event));
     runApp(game.widget);
