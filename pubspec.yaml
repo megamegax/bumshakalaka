@@ -38,16 +38,16 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/huto.png
-    - assets/images/komposzt.png
-    - assets/images/kuka.png
-    - assets/images/kutya.png
-    - assets/images/zold_alma.png
-    - assets/images/alma.png
-    - assets/images/hal.png
-    - assets/images/grillcsirke.png
-    - assets/images/sajt.png
-    - assets/images/citrom.png
+    - assets/images/fridge.png
+    - assets/images/compost.png
+    - assets/images/dumpster.png
+    - assets/images/dog.png
+    - assets/images/whole_green_apple.png
+    - assets/images/apple.png
+    - assets/images/fish.png
+    - assets/images/whole_grilled_chicken.png
+    - assets/images/cheese.png
+    - assets/images/lemon.png
     - assets/audio/megaman.mp3
   fonts:
     - family: Halo
