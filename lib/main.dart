@@ -18,7 +18,7 @@ class Main {
     engine.disableAudioLog();
     engine.loadAudio("megaman.mp3");
     engine.loadAllImages([
-      'apple.png',
+      'red_apple.png',
       'cheese.png',
       'compost.png',
       'dog.png',
@@ -26,7 +26,7 @@ class Main {
       'fish.png',
       'fridge.png',
       'lemon.png',
-      'whole_green_apple.png',
+      'green_apple.png',
       'whole_grilled_chicken.png',
     ]);
     game = new Game();
