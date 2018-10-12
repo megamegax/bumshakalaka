@@ -1,5 +1,5 @@
 import 'package:bumshakalaka/logic/food.dart';
-import 'package:bumshakalaka/logic/target.dart';
+import 'package:bumshakalaka/targets/Target.dart';
 
 abstract class Logic {
   int totalScore = 0;
@@ -15,5 +15,4 @@ abstract class Logic {
   int missedFood(Food food);
 
   Food getNextFood();
-
 }
