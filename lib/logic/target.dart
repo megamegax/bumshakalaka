@@ -1,0 +1,3 @@
+class Target {
+  String imagePath;
+}
