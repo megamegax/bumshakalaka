@@ -1,5 +1,5 @@
-import 'package:bumshakalaka/logic/food.dart';
-import 'package:bumshakalaka/targets/Target.dart';
+import 'package:bumshakalaka/food/Food.dart';
+import 'package:bumshakalaka/target/Target.dart';
 
 abstract class Logic {
   int totalScore = 0;
