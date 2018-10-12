@@ -2,8 +2,12 @@ import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/game/game.dart';
 import 'package:bumshakalaka/logic/logic.dart';
 import 'package:bumshakalaka/target/dog.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart' as widget;
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
+
+import '../test_assets_bundle.dart';
 
 class MockLogic extends Mock implements Logic {}
 
@@ -21,18 +25,45 @@ void main() {
       expect(() => new Game(null), throwsArgumentError);
     });
   });
+  group("update", () {
+    widget.testWidgets('targets should be added once',
+        (widget.WidgetTester tester) async {
+      await tester.pumpWidget(new MaterialApp(
+        home: new DefaultAssetBundle(
+            bundle: new TestAssetBundle(), child: game.widget),
+      ));
 
-  group("update2", () {
-    test("foods should be added when logic says", () {
       when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
       when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
       when(logic.foodMultiplier).thenReturn(1.0);
-      expect(game.init, false);
+      widget.expect(game.init, false);
+      game.update(0);
+      widget.expect(game.components.length, 1);
+      widget.expect(game.init, true);
+      game.update(0);
+      widget.expect(game.components.length, 1);
+    });
+
+    widget.testWidgets('foods should be added when logic says',
+        (widget.WidgetTester tester) async {
+      await tester.pumpWidget(new MaterialApp(
+        home: new DefaultAssetBundle(
+            bundle: new TestAssetBundle(), child: game.widget),
+      ));
+
+      when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
+      when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
+      when(logic.foodMultiplier).thenReturn(1.0);
       game.update(1);
-      expect(game.components.length, 1);
+      widget.expect(game.components.length, 1);
       game.update(1);
-      expect(game.init, true);
-      expect(game.components.length, 2);
+      widget.expect(game.components.length, 2);
+    });
+  });
+
+  group("update", () {
+    test("foods should be added when logic says", () {
+      expect(1, 1);
     });
   });
 }
