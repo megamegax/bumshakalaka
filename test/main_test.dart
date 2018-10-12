@@ -16,5 +16,17 @@ void main() {
       new Main(engine);
       expect(verify(engine.disableAudioLog()).callCount, 1);
     });
+    test("should loadAudio", () {
+      new Main(engine);
+      expect(verify(engine.loadAudio(any)).callCount, 1);
+    });
+    test("should loadAllImages", () {
+      new Main(engine);
+      expect(verify(engine.loadAllImages(any)).callCount, 1);
+    });
+    test("should addGestureRecognizer", () {
+      new Main(engine);
+      expect(verify(engine.addGestureRecognizer(any)).callCount, 1);
+    });
   });
 }
