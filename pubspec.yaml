@@ -15,15 +15,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flame: ^0.9.4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
+  flutter_driver:
+    sdk: flutter
   flutter_test:
     sdk: flutter
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -35,7 +37,22 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  assets:
+    - assets/images/huto.png
+    - assets/images/komposzt.png
+    - assets/images/kuka.png
+    - assets/images/kutya.png
+    - assets/images/zold_alma.png
+    - assets/images/alma.png
+    - assets/images/hal.png
+    - assets/images/grillcsirke.png
+    - assets/images/sajt.png
+    - assets/images/citrom.png
+    - assets/audio/megaman.mp3
+  fonts:
+    - family: Halo
+      fonts:
+        - asset: assets/fonts/halo.ttf
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
