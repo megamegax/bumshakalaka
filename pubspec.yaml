@@ -39,16 +39,16 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/fridge.png
-    - assets/images/compost.png
-    - assets/images/dumpster.png
-    - assets/images/dog.png
-    - assets/images/whole_green_apple.png
-    - assets/images/apple.png
-    - assets/images/fish.png
-    - assets/images/whole_grilled_chicken.png
-    - assets/images/cheese.png
-    - assets/images/lemon.png
+    - assets/images/target/fridge.png
+    - assets/images/target/compost.png
+    - assets/images/target/dumpster.png
+    - assets/images/target/dog.png
+    - assets/images/food/green_apple.png
+    - assets/images/food/red_apple.png
+    - assets/images/food/fish.png
+    - assets/images/food/whole_grilled_chicken.png
+    - assets/images/food/cheese.png
+    - assets/images/food/lemon.png
     - assets/audio/megaman.mp3
   fonts:
     - family: bitmapfont
