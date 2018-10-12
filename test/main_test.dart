@@ -1,32 +1,84 @@
+import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/game/flame_wrapper.dart';
+import 'package:bumshakalaka/game/game.dart';
 import 'package:bumshakalaka/main.dart';
+import 'package:bumshakalaka/target/dog.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart' as widget;
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
+
+import 'food/food_sprite_test.dart';
+import 'test_assets_bundle.dart';
 
 class MockFlameWrapper extends Mock implements FlameWrapper {}
 
 void main() {
   MockFlameWrapper engine;
+  Game game;
+  MockLogic logic;
+
   setUp(() {
     engine = new MockFlameWrapper();
+    logic = new MockLogic();
+    game = new Game(logic);
   });
 
   group("Main", () {
-    test("should disableAudioLogs", () {
-      new Main(engine);
-      expect(verify(engine.disableAudioLog()).callCount, 1);
+    widget.testWidgets('should disableAudioLogs',
+        (widget.WidgetTester tester) async {
+      await tester.pumpWidget(new MaterialApp(
+        home: new DefaultAssetBundle(
+            bundle: new TestAssetBundle(), child: game.widget),
+      ));
+
+      when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
+      when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
+      when(logic.foodLatency).thenReturn(1.0);
+
+      new Main(engine, game);
+      widget.expect(verify(engine.disableAudioLog()).callCount, 1);
     });
-    test("should loadAudio", () {
-      new Main(engine);
-      expect(verify(engine.loadAudio(any)).callCount, 1);
+    widget.testWidgets('should loadAudio', (widget.WidgetTester tester) async {
+      await tester.pumpWidget(new MaterialApp(
+        home: new DefaultAssetBundle(
+            bundle: new TestAssetBundle(), child: game.widget),
+      ));
+
+      when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
+      when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
+      when(logic.foodLatency).thenReturn(1.0);
+
+      new Main(engine, game);
+      widget.expect(verify(engine.loadAudio(any)).callCount, 1);
     });
-    test("should loadAllImages", () {
-      new Main(engine);
-      expect(verify(engine.loadAllImages(any)).callCount, 1);
+    widget.testWidgets('should loadAllImages',
+        (widget.WidgetTester tester) async {
+      await tester.pumpWidget(new MaterialApp(
+        home: new DefaultAssetBundle(
+            bundle: new TestAssetBundle(), child: game.widget),
+      ));
+
+      when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
+      when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
+      when(logic.foodLatency).thenReturn(1.0);
+
+      new Main(engine, game);
+      widget.expect(verify(engine.loadAllImages(any)).callCount, 1);
     });
-    test("should addGestureRecognizer", () {
-      new Main(engine);
-      expect(verify(engine.addGestureRecognizer(any)).callCount, 1);
+    widget.testWidgets('should addGestureRecognizer',
+        (widget.WidgetTester tester) async {
+      await tester.pumpWidget(new MaterialApp(
+        home: new DefaultAssetBundle(
+            bundle: new TestAssetBundle(), child: game.widget),
+      ));
+
+      when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
+      when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
+      when(logic.foodLatency).thenReturn(1.0);
+
+      new Main(engine, game);
+      widget.expect(verify(engine.addGestureRecognizer(any)).callCount, 1);
     });
   });
 }

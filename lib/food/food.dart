@@ -22,4 +22,11 @@ class Food extends AnimationComponent {
     this.animationCount = animationCount;
     this.animation.stepTime = animationSpeed / 7;
   }
+
+  @override
+  void update(double t) {
+    if (!isTouched) {
+      y += t * speed;
+    }
+  }
 }

@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 
 main() async {
   FlameWrapper engine = new FlameWrapper();
-
-  new Main(engine);
+  var game = new Game(new GameLogic());
+  new Main(engine, game);
 }
 
 class Main {
   Game game;
 
-  Main(FlameWrapper engine) {
+  Main(FlameWrapper engine, Game game) {
     engine.disableAudioLog();
     engine.loadAudio("megaman.mp3");
     engine.loadAllImages([
@@ -30,7 +30,7 @@ class Main {
       'green_apple.png',
       'whole_grilled_chicken.png',
     ]);
-    game = new Game(new GameLogic());
+    this.game = game;
     engine.addGestureRecognizer(new ImmediateMultiDragGestureRecognizer()
       ..onStart = (Offset event) => game.input(event));
     runApp(game.widget);

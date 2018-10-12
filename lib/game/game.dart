@@ -35,10 +35,12 @@ class Game extends BaseGame {
 
   void _addTargets() {
     if (!init) {
-      logic.targets.forEach((target) {
-        add(target);
-      });
-      init = true;
+      if (logic.targets != null) {
+        logic.targets.forEach((target) {
+          add(target);
+        });
+        init = true;
+      }
     }
   }
 
