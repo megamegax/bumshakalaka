@@ -8,6 +8,8 @@ class Food extends AnimationComponent {
   int animationCount = 1;
   double imageWidth = 64.0;
   double imageHeight = 64.0;
+  bool isTouched = false;
+
   Food(double x, double y, imagePath, animationCount)
       : super.sequenced(64.0, 64.0, imagePath, 1,
             textureWidth: 64.0, textureHeight: 64.0) {
