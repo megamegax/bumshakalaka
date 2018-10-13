@@ -39,4 +39,32 @@ class Food extends AnimationComponent {
       y += t * speed;
     }
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Food &&
+          runtimeType == other.runtimeType &&
+          imagePath == other.imagePath &&
+          speed == other.speed &&
+          animationSpeed == other.animationSpeed &&
+          frameCount == other.frameCount &&
+          imageWidth == other.imageWidth &&
+          imageHeight == other.imageHeight &&
+          isTouched == other.isTouched;
+
+  @override
+  int get hashCode =>
+      imagePath.hashCode ^
+      speed.hashCode ^
+      animationSpeed.hashCode ^
+      frameCount.hashCode ^
+      imageWidth.hashCode ^
+      imageHeight.hashCode ^
+      isTouched.hashCode;
+
+  @override
+  String toString() {
+    return 'Food{imagePath: $imagePath, speed: $speed, animationSpeed: $animationSpeed, frameCount: $frameCount, imageWidth: $imageWidth, imageHeight: $imageHeight, isTouched: $isTouched}';
+  }
 }

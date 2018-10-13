@@ -17,7 +17,5 @@ class DragHandler extends Drag {
   }
 
   @override
-  void cancel() {
-    print("Drag Canceled");
-  }
+  void cancel() {}
 }

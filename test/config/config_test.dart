@@ -11,20 +11,20 @@ void main() {
         new FoodConfig("red_apple.png", "fridge", 3, 250, 250).toJson()
       ];
       List<Map<String, dynamic>> targetConfig = [
-        new TargetConfig("fridge", 1, 230, 230).toJson(),
-        new TargetConfig("dumpster", 2, 220, 220).toJson()
+        new TargetConfig("fridge.png", "fridge", 1, 230, 230).toJson(),
+        new TargetConfig("dumpster.png", "dumpster", 2, 220, 220).toJson()
       ];
       var jsonMap = {"foods": foodConfig, "targets": targetConfig};
 
       var config = Config.fromJson(jsonMap);
 
-      expect(config.foodConfig, [
+      expect(config.foodConfigs, [
         new FoodConfig("green_apple.png", "fridge", 1, 240, 240),
         new FoodConfig("red_apple.png", "fridge", 3, 250, 250)
       ]);
-      expect(config.targetConfig, [
-        new TargetConfig("fridge", 1, 230, 230),
-        new TargetConfig("dumpster", 2, 220, 220)
+      expect(config.targetConfigs, [
+        new TargetConfig("fridge.png", "fridge", 1, 230, 230),
+        new TargetConfig("dumpster.png", "dumpster", 2, 220, 220)
       ]);
     });
   });

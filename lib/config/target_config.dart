@@ -1,14 +1,16 @@
 class TargetConfig {
   final String imagePath;
+  final String name;
   final int frameCount;
   final int imageWidth;
   final int imageHeight;
 
-  TargetConfig(
-      this.imagePath, this.frameCount, this.imageWidth, this.imageHeight);
+  TargetConfig(this.imagePath, this.name, this.frameCount, this.imageWidth,
+      this.imageHeight);
 
   TargetConfig.fromJson(Map<String, dynamic> json)
       : imagePath = json["imagePath"],
+        name = json["name"],
         frameCount = json["frameCount"],
         imageWidth = json["imageWidth"],
         imageHeight = json["imageHeight"];
@@ -16,15 +18,11 @@ class TargetConfig {
   Map<String, dynamic> toJson() {
     return {
       'imagePath': imagePath,
+      'name': name,
       'frameCount': frameCount,
       'imageWidth': imageWidth,
       'imageHeight': imageHeight
     };
-  }
-
-  @override
-  String toString() {
-    return 'TargetConfig{imagePath: $imagePath, frameCount: $frameCount, imageWidth: $imageWidth, imageHeight: $imageHeight}';
   }
 
   @override
@@ -33,6 +31,7 @@ class TargetConfig {
       other is TargetConfig &&
           runtimeType == other.runtimeType &&
           imagePath == other.imagePath &&
+          name == other.name &&
           frameCount == other.frameCount &&
           imageWidth == other.imageWidth &&
           imageHeight == other.imageHeight;
@@ -40,7 +39,13 @@ class TargetConfig {
   @override
   int get hashCode =>
       imagePath.hashCode ^
+      name.hashCode ^
       frameCount.hashCode ^
       imageWidth.hashCode ^
       imageHeight.hashCode;
+
+  @override
+  String toString() {
+    return 'TargetConfig{imagePath: $imagePath, name: $name, frameCount: $frameCount, imageWidth: $imageWidth, imageHeight: $imageHeight}';
+  }
 }

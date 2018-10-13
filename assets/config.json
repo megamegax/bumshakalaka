@@ -47,26 +47,26 @@
     {
       "image_path": "dumpster.png",
       "frame_count": 1,
-      "image_width": 240,
-      "image_height": 240
+      "image_width": 128,
+      "image_height": 128
     },
     {
       "image_path": "dog.png",
       "frame_count": 1,
-      "image_width": 240,
-      "image_height": 240
+      "image_width": 110,
+      "image_height": 128
     },
     {
       "image_path": "fridge.png",
       "frame_count": 1,
-      "image_width": 240,
-      "image_height": 240
+      "image_width": 128,
+      "image_height": 128
     },
     {
       "image_path": "compost.png",
       "frame_count": 1,
-      "image_width": 240,
-      "image_height": 240
+      "image_width": 122,
+      "image_height": 128
     }
   ]
 }

@@ -2,7 +2,6 @@ import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/game/flame_wrapper.dart';
 import 'package:bumshakalaka/game/game.dart';
 import 'package:bumshakalaka/main.dart';
-import 'package:bumshakalaka/target/dog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart' as widget;
 import 'package:mockito/mockito.dart';
@@ -10,6 +9,7 @@ import 'package:test/test.dart';
 
 import 'food/food_sprite_test.dart';
 import 'test_assets_bundle.dart';
+import 'util/domain_object.dart';
 
 class MockFlameWrapper extends Mock implements FlameWrapper {}
 
@@ -32,7 +32,8 @@ void main() {
             bundle: new TestAssetBundle(), child: game.widget),
       ));
 
-      when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
+      when(logic.targets)
+          .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood((food) {
         return false;
       })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, (food) {
@@ -49,7 +50,8 @@ void main() {
             bundle: new TestAssetBundle(), child: game.widget),
       ));
 
-      when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
+      when(logic.targets)
+          .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood((food) {
         return false;
       })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, (food) {
@@ -67,7 +69,8 @@ void main() {
             bundle: new TestAssetBundle(), child: game.widget),
       ));
 
-      when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
+      when(logic.targets)
+          .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood((food) {
         return false;
       })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, (food) {
@@ -85,7 +88,8 @@ void main() {
             bundle: new TestAssetBundle(), child: game.widget),
       ));
 
-      when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
+      when(logic.targets)
+          .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood((food) {
         return false;
       })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, (food) {

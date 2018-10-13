@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 class Game extends BaseGame {
   Logic logic;
 
-  double creationTimer = 0.0;
+  double _creationTimer = 0.0;
   bool init = false;
   bool gameStarted = false;
 
@@ -42,8 +42,8 @@ class Game extends BaseGame {
   }
 
   void _addFood(double t) {
-    if (creationTimer >= logic.foodLatency) {
-      creationTimer = 0.0;
+    if (_creationTimer >= logic.foodLatency) {
+      _creationTimer = 0.0;
       add(logic.getNextFood((Food food) {
         if (food.y > logic.screenSize.height) {
           logic.missedFood(food);
@@ -56,7 +56,7 @@ class Game extends BaseGame {
         }
       }));
     }
-    creationTimer += t;
+    _creationTimer += t;
   }
 
   void _addTargets() {
@@ -126,7 +126,6 @@ class Game extends BaseGame {
   void _isFoodDragedToTarget(Food component) {
     for (Target target in logic.targets) {
       if (_isComponentInTarget(target, component)) {
-        print("BEHÚZVA!!! ${target.imagePath}");
         logic.feedFoodTarget(target, component);
         component.toDestroy = true;
       }

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 main() async {
   FlameWrapper engine = new FlameWrapper();
-  var game = new Game(new GameLogic());
+  var game = new Game(new GameLogic(null, 1.0));
   new Main(engine, game);
 }
 

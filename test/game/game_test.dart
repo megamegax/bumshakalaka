@@ -1,13 +1,13 @@
 import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/game/game.dart';
 import 'package:bumshakalaka/logic/logic.dart';
-import 'package:bumshakalaka/target/dog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart' as widget;
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import '../test_assets_bundle.dart';
+import '../util/domain_object.dart';
 
 class MockLogic extends Mock implements Logic {}
 
@@ -33,7 +33,8 @@ void main() {
             bundle: new TestAssetBundle(), child: game.widget),
       ));
 
-      when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
+      when(logic.targets)
+          .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood((food) {
         return false;
       })).thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1, (food) {
@@ -55,8 +56,8 @@ void main() {
         home: new DefaultAssetBundle(
             bundle: new TestAssetBundle(), child: game.widget),
       ));
-
-      when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
+      when(logic.targets)
+          .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood((food) {
         return false;
       })).thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1, (food) {
@@ -80,7 +81,8 @@ void main() {
             bundle: new TestAssetBundle(), child: game.widget),
       ));
 
-      when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
+      when(logic.targets)
+          .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood((food) {
         return false;
       })).thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, (food) {
@@ -103,7 +105,8 @@ void main() {
             bundle: new TestAssetBundle(), child: game.widget),
       ));
 
-      when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
+      when(logic.targets)
+          .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood((food) {
         return false;
       })).thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, (food) {

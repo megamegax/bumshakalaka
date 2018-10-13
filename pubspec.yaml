@@ -50,6 +50,7 @@ flutter:
     - assets/images/cheese.png
     - assets/images/lemon.png
     - assets/audio/megaman.mp3
+    - assets/config.json
   fonts:
     - family: bitmapfont
       fonts:
