@@ -32,7 +32,7 @@ void main() {
         home: new DefaultAssetBundle(
             bundle: new TestAssetBundle(), child: game.widget),
       ));
-
+      when(logic.screenSize).thenReturn(new Size(200.0, 200.0));
       when(logic.targets)
           .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood(any)).thenReturn(DomainObject.createFood());
@@ -40,10 +40,10 @@ void main() {
       game.gameStarted = true;
       widget.expect(game.init, false);
       game.update(0.0);
-      widget.expect(game.components.length, 1);
+      widget.expect(game.components.length, 3);
       widget.expect(game.init, true);
       game.update(0.0);
-      widget.expect(game.components.length, 1);
+      widget.expect(game.components.length, 3);
     });
 
     widget.testWidgets('foods should be added when logic says',
@@ -52,6 +52,7 @@ void main() {
         home: new DefaultAssetBundle(
             bundle: new TestAssetBundle(), child: game.widget),
       ));
+      when(logic.screenSize).thenReturn(new Size(200.0, 200.0));
       when(logic.targets)
           .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood(any)).thenReturn(DomainObject.createFood());
@@ -59,9 +60,9 @@ void main() {
       game.gameStarted = true;
       when(logic.foodLatency()).thenReturn(1.0);
       game.update(1.0);
-      widget.expect(game.components.length, 1);
+      widget.expect(game.components.length, 3);
       game.update(1.0);
-      widget.expect(game.components.length, 2);
+      widget.expect(game.components.length, 4);
     });
   });
 
@@ -75,7 +76,7 @@ void main() {
         home: new DefaultAssetBundle(
             bundle: new TestAssetBundle(), child: game.widget),
       ));
-
+      when(logic.screenSize).thenReturn(new Size(200.0, 200.0));
       when(logic.targets)
           .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood((food) {
