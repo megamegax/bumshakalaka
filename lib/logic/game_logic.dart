@@ -1,8 +1,8 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:bumshakalaka/config/config.dart';
 import 'package:bumshakalaka/food/food.dart';
+import 'package:bumshakalaka/food/food_provider.dart';
 import 'package:bumshakalaka/logic/logic.dart';
 import 'package:bumshakalaka/target/target.dart';
 
@@ -14,7 +14,8 @@ class Coordinates {
 }
 
 class GameLogic extends Logic {
-  Config config;
+  Config _config;
+  FoodProvider _foodProvider;
 
   final Map<String, Coordinates> _targetCoordinates = {
     "dumpster": new Coordinates(190.0, 550.0),
@@ -23,7 +24,7 @@ class GameLogic extends Logic {
     "compost": new Coordinates(100.0, 550.0)
   };
 
-  GameLogic(this.config, this.foodLatency);
+  GameLogic(this._config, this.foodLatency, this._foodProvider);
 
   @override
   double foodLatency;
@@ -35,10 +36,7 @@ class GameLogic extends Logic {
 
   @override
   Food getNextFood(bool Function(Food food) destroyAction) {
-    Random random = new Random();
-    var x = random.nextInt(screenSize.width.toInt());
-    return new Food(
-        x.toDouble(), 0.0, 'red_apple.png', 10.0, 64.0, 64.0, 1, destroyAction);
+    return _foodProvider.getFood(10.0, screenSize.width, destroyAction);
   }
 
   @override
@@ -49,7 +47,7 @@ class GameLogic extends Logic {
 
   @override
   void start(Size screenSize) {
-    this.targets = config.targetConfigs
+    this.targets = _config.targetConfigs
         .map((tc) => new Target(
             tc.name,
             _targetCoordinates[tc.name],

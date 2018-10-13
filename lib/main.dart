@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:bumshakalaka/config/config.dart';
+import 'package:bumshakalaka/food/food_provider.dart';
 import 'package:bumshakalaka/game/flame_wrapper.dart';
 import 'package:bumshakalaka/game/game.dart';
 import 'package:bumshakalaka/logic/game_logic.dart';
@@ -13,7 +15,10 @@ main() async {
   FlameWrapper engine = new FlameWrapper();
   String stringConfig = await rootBundle.loadString("assets/config.json");
   Config config = Config.fromJson(jsonDecode(stringConfig));
-  Game game = new Game(new GameLogic(config, 1.0));
+  Random random = new Random();
+  FoodProvider foodProvider = new FoodProvider(config.foodConfigs, random);
+  GameLogic gameLogic = new GameLogic(config, 1.0, foodProvider);
+  Game game = new Game(gameLogic);
   new Main(engine, game);
 }
 

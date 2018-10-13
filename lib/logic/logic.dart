@@ -5,7 +5,7 @@ import 'package:bumshakalaka/target/target.dart';
 
 abstract class Logic {
   int totalScore = 0;
-  int speed = 10;
+  int speed;
   Duration elapsedTime;
   List<Target> targets;
   int earthState;
