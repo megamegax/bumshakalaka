@@ -37,6 +37,7 @@ void main() {
       when(logic.getNextFood())
           .thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1));
       when(logic.foodLatency).thenReturn(1.0);
+      game.gameStarted = true;
       widget.expect(game.init, false);
       game.update(0.0);
       widget.expect(game.components.length, 1);
@@ -55,6 +56,8 @@ void main() {
       when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
       when(logic.getNextFood())
           .thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1));
+
+      game.gameStarted = true;
       when(logic.foodLatency).thenReturn(1.0);
       game.update(1.0);
       widget.expect(game.components.length, 1);

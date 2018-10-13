@@ -33,9 +33,11 @@ class Main {
     this.game = game;
     runApp(game.widget);
     final size = engine.initialDimensions();
-    size.then((size) {
-      game.start(size);
-    });
+    if (size != null) {
+      size.then((size) {
+        game.start(size);
+      });
+    }
     engine.addGestureRecognizer(new ImmediateMultiDragGestureRecognizer()
       ..onStart = (Offset event) => game.input(event));
   }
