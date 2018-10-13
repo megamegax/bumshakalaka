@@ -41,9 +41,10 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/fridge.png
-    - assets/images/fridge_big.png
+    - assets/images/fridge_big_trimmed.png
     - assets/images/compost.png
     - assets/images/compost_big.png
+    - assets/images/compost_big_trimmed.png
     - assets/images/dumpster.png
     - assets/images/dog.png
     - assets/images/dog_big.png

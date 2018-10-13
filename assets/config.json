@@ -54,7 +54,7 @@
       "target": "compost",
       "frame_count": 1,
       "image_width": 64,
-      "image_height": 64
+      "image_height": 640
     },
     {
       "image_path": "banana_peel.png",
@@ -88,16 +88,16 @@
     },
     {
       "name": "fridge",
-      "image_path": "fridge_big.png",
+      "image_path": "fridge_big_trimmed.png",
       "frame_count": 11,
-      "image_width": 214,
-      "image_height": 214
+      "image_width": 150,
+      "image_height": 187
     },
     {
       "name": "compost",
       "image_path": "compost_big_trimmed.png",
       "frame_count": 8,
-      "image_width": 110,
+      "image_width": 100,
       "image_height": 123
     }
   ]

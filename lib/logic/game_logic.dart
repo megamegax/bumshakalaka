@@ -68,8 +68,8 @@ class GameLogic extends Logic {
     Map<String, Coordinates> targetCoordinates = {
       "dumpster": new Coordinates(190.0, screenSize.height - 150.0),
       "dog": new Coordinates(260.0, screenSize.height - 210.0),
-      "fridge": new Coordinates(90.0, screenSize.height - 280.0),
-      "compost": new Coordinates(-30.0, screenSize.height - 150)
+      "fridge": new Coordinates(110.0, screenSize.height - 250.0),
+      "compost": new Coordinates(20.0, screenSize.height - 110)
     };
 
     this.targets = _config.targetConfigs
