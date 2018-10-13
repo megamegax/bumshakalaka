@@ -47,24 +47,22 @@ class Game extends BaseGame {
       TextPainter gameOverPainter = Flame.util.text("GameOver",
           color: Colors.white, fontSize: 48.0, fontFamily: 'bitmapfont');
       gameOverPainter.paint(canvas, new Offset(120.0, 100.0));
-      var successfulPercentageOfPlacements = logic
-          .getSuccessfulPercentageOfPlacements()
-          .toString()
-          .padLeft(2, '0');
+      String successfulPercentageOfPlacements =
+          logic.getSuccessfulPercentageOfPlacements().toStringAsFixed(2);
       TextPainter earthLivedForXMinutes = Flame.util.text(
-          "Gratulalunk! \n$successfulPercentageOfPlacements%-ban jol dontottel!",
+          "Gratulalunk! \nAz esetek\n$successfulPercentageOfPlacements%-ban\njol dontottel!",
           color: Colors.white,
           fontSize: 40.0,
           textAlign: TextAlign.center,
           fontFamily: 'bitmapfont');
-      earthLivedForXMinutes.paint(canvas, new Offset(30.0, 420.0));
+      earthLivedForXMinutes.paint(canvas, new Offset(90.0, 390.0));
       TextPainter savedFood = Flame.util.text(
           "Megmentettel \n${logic.getSuccessfulPlacementCount()}kg elelmiszert!",
           color: Colors.white,
           fontSize: 40.0,
           textAlign: TextAlign.center,
           fontFamily: 'bitmapfont');
-      savedFood.paint(canvas, new Offset(80.0, 550.0));
+      savedFood.paint(canvas, new Offset(90.0, 580.0));
     }
   }
 
