@@ -3,7 +3,10 @@ import 'dart:ui';
 
 import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/logic/logic.dart';
+import 'package:bumshakalaka/target/compost.dart';
 import 'package:bumshakalaka/target/dog.dart';
+import 'package:bumshakalaka/target/dumpster.dart';
+import 'package:bumshakalaka/target/fridge.dart';
 import 'package:bumshakalaka/target/target.dart';
 
 class GameLogic extends Logic {
@@ -33,6 +36,9 @@ class GameLogic extends Logic {
   void start(Size screenSize) {
     this.screenSize = screenSize;
     targets = [];
-    targets.add(new Dog(0, 0));
+    targets.add(new Dumpster(190.0, 550.0));
+    targets.add(new Dog(300.0, 550.0));
+    targets.add(new Fridge(0.0, 550.0));
+    targets.add(new Compost(100.0, 550.0));
   }
 }

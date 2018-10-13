@@ -40,5 +40,7 @@ class Main {
     }
     engine.addGestureRecognizer(new ImmediateMultiDragGestureRecognizer()
       ..onStart = (Offset event) => game.input(event));
+
+    engine.playAudio("megaman.mp3");
   }
 }

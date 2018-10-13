@@ -4,8 +4,11 @@ import 'package:bumshakalaka/assert.dart';
 import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/game/handler/drag_handler.dart';
 import 'package:bumshakalaka/logic/logic.dart';
+import 'package:bumshakalaka/target/target.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 
 class Game extends BaseGame {
   Logic logic;
@@ -17,6 +20,16 @@ class Game extends BaseGame {
   Game(Logic logic) {
     Assert.notNull(logic, "Logic must not be null!");
     this.logic = logic;
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    String text = logic.totalScore.toString();
+    TextPainter p = Flame.util.text(text,
+        color: Colors.white, fontSize: 48.0, fontFamily: 'bitmapfont');
+    p.paint(canvas, new Offset(10.0, 20.0));
   }
 
   @override
@@ -74,7 +87,10 @@ class Game extends BaseGame {
   void _handleDragEnd(DragEndDetails details) {
     components.forEach((component) {
       if (component is Food) {
-        component.isTouched = false;
+        if (component.isTouched) {
+          _isFoodDragedToTarget(component);
+          component.isTouched = false;
+        }
       }
     });
   }
@@ -89,5 +105,13 @@ class Game extends BaseGame {
     this.size = screenSize;
     logic.start(screenSize);
     this.gameStarted = true;
+  }
+
+  void _isFoodDragedToTarget(Food component) {
+    for (Target target in logic.targets) {
+      if (_isComponentTapped(new Offset(target.x, target.y), component)) {
+        print("BEHÚZVA!!! ${target.imagePath}");
+      }
+    }
   }
 }
