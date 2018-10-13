@@ -12,9 +12,9 @@ class FoodProvider {
     return _foods[_random.nextInt(_foods.length)];
   }
 
-  String getTarget(FoodDto food) {
+  String getTarget(String foodImagePath) {
     return _foods
-        .firstWhere((foodFc) => food.imagePath == foodFc.imagePath)
+        .firstWhere((foodFc) => foodImagePath == foodFc.imagePath)
         .target;
   }
 }

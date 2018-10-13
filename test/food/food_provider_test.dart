@@ -24,11 +24,12 @@ void main() {
 
     test("should return the target of a food", () {
       var target = "fridge";
-      var foodDto = new FoodDto("green_apple.png", target, 3, 250, 270);
+      var imagePath = "green_apple.png";
+      var foodDto = new FoodDto(imagePath, target, 3, 250, 270);
 
       var foodProvider = new FoodProvider([foodDto], new RandomMock());
 
-      expect(foodProvider.getTarget(foodDto), target);
+      expect(foodProvider.getTarget(imagePath), target);
     });
   });
 }

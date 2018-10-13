@@ -40,21 +40,29 @@ class GameLogic extends Logic {
 
   @override
   int feedFoodTarget(Target target, Food food) {
-    return 1;
+    var targetString = _foodProvider.getTarget(food.imagePath);
+    var goodTarget =
+        targets.firstWhere((target) => target.name == targetString);
+    if (goodTarget == target) {
+      totalScore++;
+      return 1;
+    } else {
+      totalScore--;
+      return -1;
+    }
   }
 
   @override
   Food getNextFood(bool Function(Food food) destroyAction) {
-    var speed = _speedCalculator.calculateSpeed(
-        2, DateTime.now().difference(_startTime));
+    var speed = _speedCalculator.calculateSpeed(totalScore, _startTime);
     var food = _foodProvider.getFood();
     return _createFood(food, speed, destroyAction);
   }
 
   @override
   int missedFood(Food food) {
-    // TODO: implement missedFood
-    return null;
+    totalScore--;
+    return -1;
   }
 
   @override
