@@ -9,6 +9,7 @@ import 'package:bumshakalaka/game/game.dart';
 import 'package:bumshakalaka/history/score_store.dart';
 import 'package:bumshakalaka/logic/game_logic.dart';
 import 'package:bumshakalaka/logic/speed_calculator.dart';
+import 'package:flame/flame.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -17,6 +18,8 @@ main() async {
   var config = await _loadConfig();
   var gameLogic = _createGameLogic(config);
   var flameWrapper = new FlameWrapper();
+  var dimensions = await Flame.util.initialDimensions();
+
   var game = new Game(gameLogic);
   new Main(flameWrapper, game);
 }
@@ -60,6 +63,7 @@ class Main {
       'window_moon.png'
     ]);
     this.game = game;
+
     runApp(game.widget);
     final size = engine.initialDimensions();
     if (size != null) {
