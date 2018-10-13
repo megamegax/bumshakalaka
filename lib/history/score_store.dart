@@ -1,14 +1,9 @@
 class ScoreStore {
-  DateTime _startTime;
   int _totalScore = 0;
   int _successfulPlacement = 0;
   int _unsuccessfulPlacement = 0;
 
-  ScoreStore(this._startTime);
-
-  Duration retrieveTotalPlaytime(DateTime currentTime) {
-    return _startTime.difference(currentTime);
-  }
+  ScoreStore();
 
   void incrementScore(int points) {
     _successfulPlacement++;

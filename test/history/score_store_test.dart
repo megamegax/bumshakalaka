@@ -1,26 +1,11 @@
 import 'package:bumshakalaka/history/score_store.dart';
-import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
-
-class DateTimeMock extends Mock implements DateTime {}
 
 void main() {
   group("ScoreStore", () {
-    test("should be able to retrieve total playtime", () {
-      var startTimeMock = new DateTimeMock();
-      var endTimeMock = new DateTimeMock();
-      Duration elapsedDuration = new Duration(minutes: 1, seconds: 6);
-      when(startTimeMock.difference(endTimeMock)).thenReturn(elapsedDuration);
-      ScoreStore scoreStore = new ScoreStore(startTimeMock);
-
-      Duration actualDuration = scoreStore.retrieveTotalPlaytime(endTimeMock);
-
-      expect(actualDuration, elapsedDuration);
-    });
-
     test("should be able to increment total score", () {
       int points = 1;
-      ScoreStore scoreStore = new ScoreStore(new DateTimeMock());
+      ScoreStore scoreStore = new ScoreStore();
 
       scoreStore.incrementScore(points);
 
@@ -30,7 +15,7 @@ void main() {
 
     test("should be able to decrease  total score", () {
       int points = 1;
-      ScoreStore scoreStore = new ScoreStore(new DateTimeMock());
+      ScoreStore scoreStore = new ScoreStore();
 
       scoreStore.decrementScore(points);
 
@@ -41,7 +26,7 @@ void main() {
     test("should be able retrive percentage of successful interactions ", () {
       int points = 2;
       int negativePoints = 3;
-      ScoreStore scoreStore = new ScoreStore(new DateTimeMock());
+      ScoreStore scoreStore = new ScoreStore();
 
       scoreStore.incrementScore(points);
       scoreStore.decrementScore(negativePoints);
@@ -53,7 +38,7 @@ void main() {
     test("should be able retrive percentage of unsuccessful interactions ", () {
       int points = 2;
       int negativePoints = 3;
-      ScoreStore scoreStore = new ScoreStore(new DateTimeMock());
+      ScoreStore scoreStore = new ScoreStore();
 
       scoreStore.incrementScore(points);
       scoreStore.decrementScore(negativePoints);
@@ -66,7 +51,7 @@ void main() {
     test("should be able retrive number of unsuccessful interactions ", () {
       int points = 2;
       int negativePoints = 3;
-      ScoreStore scoreStore = new ScoreStore(new DateTimeMock());
+      ScoreStore scoreStore = new ScoreStore();
 
       scoreStore.incrementScore(points);
       scoreStore.decrementScore(negativePoints);
@@ -79,7 +64,7 @@ void main() {
     test("should be able retrive number of successful interactions ", () {
       int points = 2;
       int negativePoints = 3;
-      ScoreStore scoreStore = new ScoreStore(new DateTimeMock());
+      ScoreStore scoreStore = new ScoreStore();
 
       scoreStore.incrementScore(points);
       scoreStore.incrementScore(points);

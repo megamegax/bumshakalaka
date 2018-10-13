@@ -15,11 +15,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 main() async {
+  await Flame.util.initialDimensions();
   var config = await _loadConfig();
   var gameLogic = _createGameLogic(config);
   var flameWrapper = new FlameWrapper();
-  var dimensions = await Flame.util.initialDimensions();
-
   var game = new Game(gameLogic);
   new Main(flameWrapper, game);
 }
@@ -28,7 +27,7 @@ GameLogic _createGameLogic(Config config) {
   var random = new Random();
   var foodProvider = new FoodProvider(config.foodConfigs, random);
   var speedCalculator = new SpeedCalculator(40.0, 5.0);
-  var scoreStore = new ScoreStore(DateTime.now());
+  var scoreStore = new ScoreStore();
   var gameLogic =
       new GameLogic(config, foodProvider, random, speedCalculator, scoreStore);
   return gameLogic;

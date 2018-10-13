@@ -21,7 +21,9 @@ abstract class Logic {
   Food getNextFood(bool Function(Food food) destroyAction);
 
   int getTotalScore();
+
   int getUnsuccessfulPlacementCount();
+
   int getSuccessfulPlacementCount();
 
   String getWindowName();
