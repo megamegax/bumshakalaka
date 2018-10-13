@@ -18,5 +18,5 @@ abstract class Logic {
 
   int missedFood(Food food);
 
-  Food getNextFood();
+  Food getNextFood(bool Function(Food food) destroyAction);
 }

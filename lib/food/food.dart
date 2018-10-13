@@ -9,9 +9,10 @@ class Food extends AnimationComponent {
   double imageWidth;
   double imageHeight;
   bool isTouched;
+  bool Function(Food food) destroyAction;
 
   Food(double x, double y, this.imagePath, this.speed, this.imageWidth,
-      this.imageHeight, frameCount)
+      this.imageHeight, frameCount, this.destroyAction)
       : super.sequenced(imageWidth, imageHeight, imagePath, 1,
             textureWidth: imageWidth, textureHeight: imageHeight) {
     Assert.notNull(x, 'X must not be null!');
@@ -23,6 +24,11 @@ class Food extends AnimationComponent {
     this.animationSpeed = 0.97;
     this.frameCount = frameCount;
     this.animation.stepTime = animationSpeed / 7;
+  }
+
+  @override
+  bool destroy() {
+    return destroyAction(this);
   }
 
   @override

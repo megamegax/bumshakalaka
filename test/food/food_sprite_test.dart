@@ -26,11 +26,17 @@ void main() async {
     ));
 
     when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
-    when(logic.getNextFood())
-        .thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1));
+    when(logic.getNextFood(() {
+      return false;
+    })).thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1, () {
+      return false;
+    }));
     when(logic.foodLatency).thenReturn(1.0);
 
-    expect(() => new Food(null, 1.0, 'kutya.png', 1.0, 1.0, 1.0, 10),
+    expect(
+        () => new Food(null, 1.0, 'kutya.png', 1.0, 1.0, 1.0, 10, () {
+              return false;
+            }),
         throwsArgumentError);
   });
 
@@ -42,11 +48,17 @@ void main() async {
     ));
 
     when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
-    when(logic.getNextFood())
-        .thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1));
+    when(logic.getNextFood(() {
+      return false;
+    })).thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1, () {
+      return false;
+    }));
     when(logic.foodLatency).thenReturn(1.0);
 
-    expect(() => new Food(1.0, null, 'kutya.png', 1.0, 1.0, 1.0, 10),
+    expect(
+        () => new Food(1.0, null, 'kutya.png', 1.0, 1.0, 1.0, 10, () {
+              return false;
+            }),
         throwsArgumentError);
   });
 
@@ -58,11 +70,17 @@ void main() async {
     ));
 
     when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
-    when(logic.getNextFood())
-        .thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1));
+    when(logic.getNextFood(() {
+      return false;
+    })).thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, () {
+      return false;
+    }));
     when(logic.foodLatency).thenReturn(1.0);
 
-    expect(() => new Food(1.0, null, "dog.png", 1.0, 1.0, 1.0, null),
+    expect(
+        () => new Food(1.0, null, "dog.png", 1.0, 1.0, 1.0, null, () {
+              return false;
+            }),
         throwsArgumentError);
   });
 
@@ -74,11 +92,16 @@ void main() async {
     ));
 
     when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
-    when(logic.getNextFood())
-        .thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1));
+    when(logic.getNextFood(() {
+      return false;
+    })).thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, () {
+      return false;
+    }));
     when(logic.foodLatency).thenReturn(1.0);
 
-    Food food = new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1);
+    Food food = new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, () {
+      return false;
+    });
     expect(food.x, 1.0);
     expect(food.y, 1.0);
     food.update(0.1);

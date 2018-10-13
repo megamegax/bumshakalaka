@@ -20,15 +20,17 @@ class GameLogic extends Logic {
   }
 
   @override
-  Food getNextFood() {
+  Food getNextFood(bool Function(Food food) destroyAction) {
     Random random = new Random();
     var x = random.nextInt(screenSize.width.toInt());
-    return new Food(x.toDouble(), 0, 'red_apple.png', 10, 64.0, 64.0, 1);
+    return new Food(
+        x.toDouble(), 0, 'red_apple.png', 10, 64.0, 64.0, 1, destroyAction);
   }
 
   @override
   int missedFood(Food food) {
-    // TODO: implement missedFood
+    print("Missed food");
+    totalScore -= 1;
     return null;
   }
 

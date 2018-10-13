@@ -44,7 +44,14 @@ class Game extends BaseGame {
   void _addFood(double t) {
     if (creationTimer >= logic.foodLatency) {
       creationTimer = 0.0;
-      add(logic.getNextFood());
+      add(logic.getNextFood((Food food) {
+        if (food.y > logic.screenSize.height) {
+          logic.missedFood(food);
+          return true;
+        } else {
+          return false;
+        }
+      }));
     }
     creationTimer += t;
   }
