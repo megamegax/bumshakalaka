@@ -13,16 +13,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 main() async {
-  FlameWrapper engine = new FlameWrapper();
-  String stringConfig = await rootBundle.loadString("assets/config.json");
-  Config config = Config.fromJson(jsonDecode(stringConfig));
-  Random random = new Random();
-  FoodProvider foodProvider = new FoodProvider(config.foodConfigs, random);
-  SpeedCalculator speedCalculator = new SpeedCalculator();
-  GameLogic gameLogic =
-      new GameLogic(config, foodProvider, random, speedCalculator);
-  Game game = new Game(gameLogic);
-  new Main(engine, game);
+  var config = await _loadConfig();
+  var gameLogic = _createGameLogic(config);
+  var flameWrapper = new FlameWrapper();
+  var game = new Game(gameLogic);
+  new Main(flameWrapper, game);
+}
+
+GameLogic _createGameLogic(Config config) {
+  var random = new Random();
+  var foodProvider = new FoodProvider(config.foodConfigs, random);
+  var speedCalculator = new SpeedCalculator();
+  var gameLogic = new GameLogic(config, foodProvider, random, speedCalculator);
+  return gameLogic;
+}
+
+Future<Config> _loadConfig() async {
+  var stringConfig = await rootBundle.loadString("assets/config.json");
+  var config = Config.fromJson(jsonDecode(stringConfig));
+  return config;
 }
 
 class Main {

@@ -1,5 +1,10 @@
 class SpeedCalculator {
   double calculateSpeed(int score, DateTime startTime) {
-    return startTime.difference(DateTime.now()).inSeconds * score.toDouble();
+    var validateSpeed;§§
+    if (score < 5) {
+      validateSpeed = 5;
+    }
+    return DateTime.now().difference(startTime).inSeconds *
+        validateSpeed.toDouble();
   }
 }
