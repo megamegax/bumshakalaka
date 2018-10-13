@@ -11,6 +11,8 @@ class Food extends AnimationComponent {
   bool isTouched;
   bool Function(Food food) destroyAction;
 
+  bool toDestroy = false;
+
   Food(double x, double y, this.imagePath, this.speed, this.imageWidth,
       this.imageHeight, frameCount, this.destroyAction)
       : super.sequenced(imageWidth, imageHeight, imagePath, 1,

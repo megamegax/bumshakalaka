@@ -49,6 +49,9 @@ class Game extends BaseGame {
           logic.missedFood(food);
           return true;
         } else {
+          if (food.toDestroy) {
+            return true;
+          }
           return false;
         }
       }));
@@ -108,6 +111,12 @@ class Game extends BaseGame {
       event.dy >= component.y &&
       event.dy <= component.y + component.height;
 
+  bool _isComponentInTarget(Target target, Food component) =>
+      target.x + target.width >= component.x &&
+      target.x <= component.x + component.width &&
+      target.y + target.height >= component.y &&
+      target.y <= component.y + component.height;
+
   void start(Size screenSize) {
     this.size = screenSize;
     logic.start(screenSize);
@@ -116,8 +125,10 @@ class Game extends BaseGame {
 
   void _isFoodDragedToTarget(Food component) {
     for (Target target in logic.targets) {
-      if (_isComponentTapped(new Offset(target.x, target.y), component)) {
+      if (_isComponentInTarget(target, component)) {
         print("BEHÚZVA!!! ${target.imagePath}");
+        logic.feedFoodTarget(target, component);
+        component.toDestroy = true;
       }
     }
   }
