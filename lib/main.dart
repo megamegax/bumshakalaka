@@ -23,7 +23,7 @@ main() async {
 GameLogic _createGameLogic(Config config) {
   var random = new Random();
   var foodProvider = new FoodProvider(config.foodConfigs, random);
-  var speedCalculator = new SpeedCalculator();
+  var speedCalculator = new SpeedCalculator(40.0, 5.0);
   var gameLogic = new GameLogic(config, foodProvider, random, speedCalculator);
   return gameLogic;
 }

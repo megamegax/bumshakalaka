@@ -1,12 +1,23 @@
+import 'dart:math';
+
 class SpeedCalculator {
+  final double _maxValue;
+  final double _minValue;
+
+  static const e_number = 2.71828;
+
+  SpeedCalculator(this._maxValue, this._minValue);
+
   double calculateSpeed(int score, DateTime startTime) {
     var validateSpeed;
-    if (score < 5) {
-      validateSpeed = 5;
+    if (score < _minValue) {
+      validateSpeed = _minValue;
     } else {
       validateSpeed = score;
     }
-    return DateTime.now().difference(startTime).inSeconds *
-        validateSpeed.toDouble();
+    return max(
+        DateTime.now().difference(startTime).inSeconds +
+            validateSpeed.toDouble() * e_number,
+        _maxValue);
   }
 }

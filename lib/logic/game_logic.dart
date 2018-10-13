@@ -30,7 +30,7 @@ class GameLogic extends Logic {
 
   @override
   double foodLatency() {
-    return _random.nextDouble() + 2.0;
+    return _random.nextDouble() + 1.3;
   }
 
   @override
