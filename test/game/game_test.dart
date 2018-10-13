@@ -34,9 +34,9 @@ void main() {
       ));
 
       when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
-      when(logic.getNextFood(() {
+      when(logic.getNextFood((food) {
         return false;
-      })).thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1, () {
+      })).thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1, (food) {
         return false;
       }));
       when(logic.foodLatency).thenReturn(1.0);
@@ -57,9 +57,9 @@ void main() {
       ));
 
       when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
-      when(logic.getNextFood(() {
+      when(logic.getNextFood((food) {
         return false;
-      })).thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1, () {
+      })).thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1, (food) {
         return false;
       }));
 
@@ -81,14 +81,14 @@ void main() {
       ));
 
       when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
-      when(logic.getNextFood(() {
+      when(logic.getNextFood((food) {
         return false;
-      })).thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, () {
+      })).thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, (food) {
         return false;
       }));
       when(logic.foodLatency).thenReturn(1.0);
 
-      game.components.add(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, () {
+      game.components.add(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, (food) {
         return false;
       }));
       expect((game.components.first as Food).isTouched, false);
@@ -104,14 +104,14 @@ void main() {
       ));
 
       when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
-      when(logic.getNextFood(() {
+      when(logic.getNextFood((food) {
         return false;
-      })).thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, () {
+      })).thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, (food) {
         return false;
       }));
       when(logic.foodLatency).thenReturn(1.0);
 
-      game.components.add(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, () {
+      game.components.add(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, (food) {
         return false;
       }));
       expect((game.components.first as Food).isTouched, false);

@@ -33,9 +33,9 @@ void main() {
       ));
 
       when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
-      when(logic.getNextFood(() {
+      when(logic.getNextFood((food) {
         return false;
-      })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, () {
+      })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, (food) {
         return false;
       }));
       when(logic.foodLatency).thenReturn(1.0);
@@ -50,9 +50,9 @@ void main() {
       ));
 
       when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
-      when(logic.getNextFood(() {
+      when(logic.getNextFood((food) {
         return false;
-      })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, () {
+      })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, (food) {
         return false;
       }));
       when(logic.foodLatency).thenReturn(1.0);
@@ -68,9 +68,9 @@ void main() {
       ));
 
       when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
-      when(logic.getNextFood(() {
+      when(logic.getNextFood((food) {
         return false;
-      })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, () {
+      })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, (food) {
         return false;
       }));
       when(logic.foodLatency).thenReturn(1.0);
@@ -86,9 +86,9 @@ void main() {
       ));
 
       when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
-      when(logic.getNextFood(() {
+      when(logic.getNextFood((food) {
         return false;
-      })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, () {
+      })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, (food) {
         return false;
       }));
       when(logic.foodLatency).thenReturn(1.0);
