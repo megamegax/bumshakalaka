@@ -1,24 +1,24 @@
-class FoodConfig {
+class TargetDto {
   final String imagePath;
-  final String target;
+  final String name;
   final int frameCount;
   final int imageWidth;
   final int imageHeight;
 
-  FoodConfig(this.imagePath, this.target, this.frameCount, this.imageWidth,
-      this.imageHeight);
-
-  FoodConfig.fromJson(Map<String, dynamic> json)
+  TargetDto.fromJson(Map<String, dynamic> json)
       : imagePath = json["image_path"],
+        name = json["name"],
         frameCount = json["frame_count"],
         imageWidth = json["image_width"],
-        imageHeight = json["image_height"],
-        target = json["target"];
+        imageHeight = json["image_height"];
+
+  TargetDto(this.imagePath, this.name, this.frameCount, this.imageWidth,
+      this.imageHeight);
 
   Map<String, dynamic> toJson() {
     return {
       'image_path': imagePath,
-      'target': target,
+      'name': name,
       'frame_count': frameCount,
       'image_width': imageWidth,
       'image_height': imageHeight
@@ -26,17 +26,12 @@ class FoodConfig {
   }
 
   @override
-  String toString() {
-    return 'FoodConfig{imagePath: $imagePath, target: $target, frameCount: $frameCount, imageWidth: $imageWidth, imageHeight: $imageHeight}';
-  }
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FoodConfig &&
+      other is TargetDto &&
           runtimeType == other.runtimeType &&
           imagePath == other.imagePath &&
-          target == other.target &&
+          name == other.name &&
           frameCount == other.frameCount &&
           imageWidth == other.imageWidth &&
           imageHeight == other.imageHeight;
@@ -44,8 +39,13 @@ class FoodConfig {
   @override
   int get hashCode =>
       imagePath.hashCode ^
-      target.hashCode ^
+      name.hashCode ^
       frameCount.hashCode ^
       imageWidth.hashCode ^
       imageHeight.hashCode;
+
+  @override
+  String toString() {
+    return 'TargetConfig{imagePath: $imagePath, name: $name, frameCount: $frameCount, imageWidth: $imageWidth, imageHeight: $imageHeight}';
+  }
 }

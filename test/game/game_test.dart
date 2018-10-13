@@ -36,7 +36,7 @@ void main() {
       when(logic.targets)
           .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood(any)).thenReturn(DomainObject.createFood());
-      when(logic.foodLatency).thenReturn(1.0);
+      when(logic.foodLatency()).thenReturn(1.0);
       game.gameStarted = true;
       widget.expect(game.init, false);
       game.update(0.0);
@@ -81,7 +81,7 @@ void main() {
       when(logic.getNextFood((food) {
         return false;
       })).thenReturn(DomainObject.createFood(x: 0.0, y: 0.0));
-      when(logic.foodLatency).thenReturn(1.0);
+      when(logic.foodLatency()).thenReturn(1.0);
 
       game.components.add(DomainObject.createFood(
           x: 0.0, y: 0.0, imageWidth: 64.0, imageHeight: 64.0));
@@ -102,7 +102,7 @@ void main() {
       when(logic.getNextFood((food) {
         return false;
       })).thenReturn(DomainObject.createFood(x: 0.0, y: 0.0));
-      when(logic.foodLatency).thenReturn(1.0);
+      when(logic.foodLatency()).thenReturn(1.0);
 
       game.components.add(DomainObject.createFood(x: 0.0, y: 0.0));
       expect((game.components.first as Food).isTouched, false);

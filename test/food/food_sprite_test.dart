@@ -29,7 +29,7 @@ void main() async {
     when(logic.getNextFood((food) {
       return false;
     })).thenReturn(DomainObject.createFood());
-    when(logic.foodLatency).thenReturn(1.0);
+    when(logic.foodLatency()).thenReturn(1.0);
 
     expect(() => DomainObject.createFood(x: null), throwsArgumentError);
   });
@@ -45,7 +45,7 @@ void main() async {
     when(logic.getNextFood((food) {
       return false;
     })).thenReturn(DomainObject.createFood());
-    when(logic.foodLatency).thenReturn(1.0);
+    when(logic.foodLatency()).thenReturn(1.0);
 
     expect(() => DomainObject.createFood(y: null), throwsArgumentError);
   });
@@ -61,7 +61,7 @@ void main() async {
     when(logic.getNextFood((food) {
       return false;
     })).thenReturn(DomainObject.createFood());
-    when(logic.foodLatency).thenReturn(1.0);
+    when(logic.foodLatency()).thenReturn(1.0);
 
     expect(
         () => DomainObject.createFood(frameCount: null), throwsArgumentError);
@@ -78,9 +78,9 @@ void main() async {
     when(logic.getNextFood((food) {
       return false;
     })).thenReturn(DomainObject.createFood());
-    when(logic.foodLatency).thenReturn(1.0);
+    when(logic.foodLatency()).thenReturn(1.0);
 
-    Food food = DomainObject.createFood(x: 1.0, y: 1.0, speed: 10);
+    Food food = DomainObject.createFood(x: 1.0, y: 1.0, speed: 10.0);
     expect(food.x, 1.0);
     expect(food.y, 1.0);
     food.update(0.1);

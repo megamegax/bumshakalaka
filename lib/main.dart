@@ -7,6 +7,7 @@ import 'package:bumshakalaka/food/food_provider.dart';
 import 'package:bumshakalaka/game/flame_wrapper.dart';
 import 'package:bumshakalaka/game/game.dart';
 import 'package:bumshakalaka/logic/game_logic.dart';
+import 'package:bumshakalaka/logic/speed_calculator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -17,7 +18,9 @@ main() async {
   Config config = Config.fromJson(jsonDecode(stringConfig));
   Random random = new Random();
   FoodProvider foodProvider = new FoodProvider(config.foodConfigs, random);
-  GameLogic gameLogic = new GameLogic(config, foodProvider, random);
+  SpeedCalculator speedCalculator = new SpeedCalculator();
+  GameLogic gameLogic =
+      new GameLogic(config, foodProvider, random, speedCalculator);
   Game game = new Game(gameLogic);
   new Main(engine, game);
 }

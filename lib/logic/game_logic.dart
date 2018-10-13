@@ -3,8 +3,10 @@ import 'dart:ui';
 
 import 'package:bumshakalaka/config/config.dart';
 import 'package:bumshakalaka/food/food.dart';
+import 'package:bumshakalaka/food/food_dto.dart';
 import 'package:bumshakalaka/food/food_provider.dart';
 import 'package:bumshakalaka/logic/logic.dart';
+import 'package:bumshakalaka/logic/speed_calculator.dart';
 import 'package:bumshakalaka/target/target.dart';
 
 class Coordinates {
@@ -16,10 +18,10 @@ class Coordinates {
 
 class GameLogic extends Logic {
   final Config _config;
-
   final FoodProvider _foodProvider;
-
   final Random _random;
+  SpeedCalculator _speedCalculator;
+  DateTime _startTime;
 
   final Map<String, Coordinates> _targetCoordinates = {
     "dumpster": new Coordinates(190.0, 550.0),
@@ -28,7 +30,8 @@ class GameLogic extends Logic {
     "compost": new Coordinates(100.0, 550.0)
   };
 
-  GameLogic(this._config, this._foodProvider, this._random);
+  GameLogic(
+      this._config, this._foodProvider, this._random, this._speedCalculator);
 
   @override
   double foodLatency() {
@@ -37,12 +40,15 @@ class GameLogic extends Logic {
 
   @override
   int feedFoodTarget(Target target, Food food) {
-    return 0;
+    return 1;
   }
 
   @override
   Food getNextFood(bool Function(Food food) destroyAction) {
-    return _foodProvider.getFood(10.0, destroyAction);
+    var speed = _speedCalculator.calculateSpeed(
+        2, DateTime.now().difference(_startTime));
+    var food = _foodProvider.getFood();
+    return _createFood(food, speed, destroyAction);
   }
 
   @override
@@ -53,6 +59,8 @@ class GameLogic extends Logic {
 
   @override
   void start(Size screenSize) {
+    _startTime = DateTime.now();
+
     this.targets = _config.targetConfigs
         .map((tc) => new Target(
             tc.name,
@@ -64,6 +72,13 @@ class GameLogic extends Logic {
         .toList();
 
     this.screenSize = screenSize;
-    this._foodProvider.screenWidth = screenSize.width;
+  }
+
+  Food _createFood(
+      FoodDto food, double speed, bool Function(Food food) destroyAction) {
+    double xCoord =
+        _random.nextDouble() * (this.screenSize.width - food.imageWidth);
+    return Food(xCoord, 0.0, food.imagePath, speed, food.imageWidth.toDouble(),
+        food.imageHeight.toDouble(), food.frameCount, destroyAction);
   }
 }

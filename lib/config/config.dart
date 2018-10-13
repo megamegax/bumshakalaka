@@ -1,9 +1,9 @@
-import 'package:bumshakalaka/config/food_config.dart';
-import 'package:bumshakalaka/config/target_config.dart';
+import 'package:bumshakalaka/food/food_dto.dart';
+import 'package:bumshakalaka/target/target_dto.dart';
 
 class Config {
-  List<FoodConfig> foodConfigs;
-  List<TargetConfig> targetConfigs;
+  List<FoodDto> foodConfigs;
+  List<TargetDto> targetConfigs;
 
   Config(this.foodConfigs, this.targetConfigs);
 
@@ -11,11 +11,11 @@ class Config {
     foodConfigs = [];
     targetConfigs = [];
     configJson["foods"].forEach((food) {
-      foodConfigs.add(new FoodConfig.fromJson(food));
+      foodConfigs.add(new FoodDto.fromJson(food));
     });
 
     configJson["targets"].forEach((target) {
-      targetConfigs.add(new TargetConfig.fromJson((target)));
+      targetConfigs.add(new TargetDto.fromJson((target)));
     });
   }
 }

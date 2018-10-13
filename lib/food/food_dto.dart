@@ -1,24 +1,24 @@
-class TargetConfig {
+class FoodDto {
   final String imagePath;
-  final String name;
+  final String target;
   final int frameCount;
   final int imageWidth;
   final int imageHeight;
 
-  TargetConfig.fromJson(Map<String, dynamic> json)
+  FoodDto(this.imagePath, this.target, this.frameCount, this.imageWidth,
+      this.imageHeight);
+
+  FoodDto.fromJson(Map<String, dynamic> json)
       : imagePath = json["image_path"],
-        name = json["name"],
         frameCount = json["frame_count"],
         imageWidth = json["image_width"],
-        imageHeight = json["image_height"];
-
-  TargetConfig(this.imagePath, this.name, this.frameCount, this.imageWidth,
-      this.imageHeight);
+        imageHeight = json["image_height"],
+        target = json["target"];
 
   Map<String, dynamic> toJson() {
     return {
       'image_path': imagePath,
-      'name': name,
+      'target': target,
       'frame_count': frameCount,
       'image_width': imageWidth,
       'image_height': imageHeight
@@ -26,12 +26,17 @@ class TargetConfig {
   }
 
   @override
+  String toString() {
+    return 'FoodConfig{imagePath: $imagePath, target: $target, frameCount: $frameCount, imageWidth: $imageWidth, imageHeight: $imageHeight}';
+  }
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TargetConfig &&
+      other is FoodDto &&
           runtimeType == other.runtimeType &&
           imagePath == other.imagePath &&
-          name == other.name &&
+          target == other.target &&
           frameCount == other.frameCount &&
           imageWidth == other.imageWidth &&
           imageHeight == other.imageHeight;
@@ -39,13 +44,8 @@ class TargetConfig {
   @override
   int get hashCode =>
       imagePath.hashCode ^
-      name.hashCode ^
+      target.hashCode ^
       frameCount.hashCode ^
       imageWidth.hashCode ^
       imageHeight.hashCode;
-
-  @override
-  String toString() {
-    return 'TargetConfig{imagePath: $imagePath, name: $name, frameCount: $frameCount, imageWidth: $imageWidth, imageHeight: $imageHeight}';
-  }
 }
