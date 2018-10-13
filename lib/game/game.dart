@@ -43,7 +43,6 @@ class Game extends BaseGame {
     }
   }
 
-
   @override
   void update(double t) {
     if (gameStarted) {
@@ -132,15 +131,15 @@ class Game extends BaseGame {
 
   bool _isComponentTapped(Offset event, Food component) =>
       event.dx >= component.x &&
-          event.dx <= component.x + component.width &&
-          event.dy >= component.y &&
-          event.dy <= component.y + component.height;
+      event.dx <= component.x + component.width &&
+      event.dy >= component.y &&
+      event.dy <= component.y + component.height;
 
   bool _isComponentInTarget(Target target, Food component) =>
       target.x + target.width >= component.x &&
-          target.x <= component.x + component.width &&
-          target.y + target.height >= component.y &&
-          target.y <= component.y + component.height;
+      target.x <= component.x + component.width &&
+      target.y + target.height >= component.y &&
+      target.y <= component.y + component.height;
 
   void start(Size screenSize) {
     this.size = screenSize;
@@ -179,6 +178,7 @@ class Game extends BaseGame {
     for (Component component in components) {
       if (component is Sprite) {
         component.toDestroy = true;
+        // TODO ouf of for cycle?
         _gameEnded = true;
       }
     }
@@ -186,14 +186,13 @@ class Game extends BaseGame {
 
   void _printHowMuchPlayerSaved(Canvas canvas) {
     var howMuchPlayerSaved =
-        "Megmentettel \n${logic
-        .getSuccessfulPlacementCount()}kg elelmiszert!";
+        "Megmentettel \n${logic.getSuccessfulPlacementCount()}kg elelmiszert!";
     _printText(canvas, howMuchPlayerSaved, new Offset(90.0, 580.0), 40.0);
   }
 
   void _printCongratPlayer(Canvas canvas) {
     var successfulPercentageOfPlacements =
-    logic.getSuccessfulPercentageOfPlacements().toStringAsFixed(2);
+        logic.getSuccessfulPercentageOfPlacements().toStringAsFixed(2);
     var congratPlayerText =
         "Gratulalunk! \nAz esetek\n$successfulPercentageOfPlacements%-ban\njol dontottel!";
     _printText(canvas, congratPlayerText, new Offset(90.0, 390.0), 40.0);
@@ -225,7 +224,7 @@ class Game extends BaseGame {
 
   void _printText(Canvas canvas, String text, Offset offset,
       [double fontSize = 48.0]) {
-    var textPainter = _createTextPainter(text, fontSize)
+    var textPainter = _createTextPainter(text, fontSize);
     textPainter.paint(canvas, offset);
   }
 }
