@@ -14,8 +14,8 @@ class Config {
       foodConfigs.add(new FoodConfig.fromJson(food));
     });
 
-    configJson["targets"].forEach((json) {
-      targetConfigs.add(new TargetConfig.fromJson((json)));
+    configJson["targets"].forEach((target) {
+      targetConfigs.add(new TargetConfig.fromJson((target)));
     });
   }
 }

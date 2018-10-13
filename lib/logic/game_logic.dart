@@ -49,13 +49,15 @@ class GameLogic extends Logic {
 
   @override
   void start(Size screenSize) {
-    this.targets = config.targetConfigs.map((tc) => new Target(
-        tc.name,
-        _targetCoordinates[tc.name],
-        tc.imagePath,
-        tc.frameCount,
-        tc.imageWidth.toDouble(),
-        tc.imageHeight.toDouble()));
+    this.targets = config.targetConfigs
+        .map((tc) => new Target(
+            tc.name,
+            _targetCoordinates[tc.name],
+            tc.imagePath,
+            tc.frameCount,
+            tc.imageWidth.toDouble(),
+            tc.imageHeight.toDouble()))
+        .toList();
 
     this.screenSize = screenSize;
   }

@@ -1,14 +1,19 @@
+import 'dart:convert';
 import 'dart:ui';
 
+import 'package:bumshakalaka/config/config.dart';
 import 'package:bumshakalaka/game/flame_wrapper.dart';
 import 'package:bumshakalaka/game/game.dart';
 import 'package:bumshakalaka/logic/game_logic.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 main() async {
   FlameWrapper engine = new FlameWrapper();
-  var game = new Game(new GameLogic(null, 1.0));
+  String stringConfig = await rootBundle.loadString("assets/config.json");
+  Config config = Config.fromJson(jsonDecode(stringConfig));
+  Game game = new Game(new GameLogic(config, 1.0));
   new Main(engine, game);
 }
 

@@ -5,23 +5,23 @@ class TargetConfig {
   final int imageWidth;
   final int imageHeight;
 
+  TargetConfig.fromJson(Map<String, dynamic> json)
+      : imagePath = json["image_path"],
+        name = json["name"],
+        frameCount = json["frame_count"],
+        imageWidth = json["image_width"],
+        imageHeight = json["image_height"];
+
   TargetConfig(this.imagePath, this.name, this.frameCount, this.imageWidth,
       this.imageHeight);
 
-  TargetConfig.fromJson(Map<String, dynamic> json)
-      : imagePath = json["imagePath"],
-        name = json["name"],
-        frameCount = json["frameCount"],
-        imageWidth = json["imageWidth"],
-        imageHeight = json["imageHeight"];
-
   Map<String, dynamic> toJson() {
     return {
-      'imagePath': imagePath,
+      'image_path': imagePath,
       'name': name,
-      'frameCount': frameCount,
-      'imageWidth': imageWidth,
-      'imageHeight': imageHeight
+      'frame_count': frameCount,
+      'image_width': imageWidth,
+      'image_height': imageHeight
     };
   }
 

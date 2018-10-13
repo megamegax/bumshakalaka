@@ -9,19 +9,19 @@ class FoodConfig {
       this.imageHeight);
 
   FoodConfig.fromJson(Map<String, dynamic> json)
-      : imagePath = json["imagePath"],
-        frameCount = json["frameCount"],
-        imageWidth = json["imageWidth"],
-        imageHeight = json["imageHeight"],
+      : imagePath = json["image_path"],
+        frameCount = json["frame_count"],
+        imageWidth = json["image_width"],
+        imageHeight = json["image_height"],
         target = json["target"];
 
   Map<String, dynamic> toJson() {
     return {
-      'imagePath': imagePath,
+      'image_path': imagePath,
       'target': target,
-      'frameCount': frameCount,
-      'imageWidth': imageWidth,
-      'imageHeight': imageHeight
+      'frame_count': frameCount,
+      'image_width': imageWidth,
+      'image_height': imageHeight
     };
   }
 
