@@ -1,8 +1,9 @@
+import 'package:bumshakalaka/Sprite.dart';
 import 'package:bumshakalaka/logic/game_logic.dart';
 import 'package:bumshakalaka/util/assert.dart';
 import 'package:flame/components/animation_component.dart';
 
-class Target extends AnimationComponent {
+class Target extends AnimationComponent implements Sprite {
   String name;
   String imagePath;
   double animationSpeed;
@@ -25,5 +26,13 @@ class Target extends AnimationComponent {
     this.imageWidth = imageWidth;
     this.animationSpeed = 0.75;
     this.animation.stepTime = animationSpeed / 7;
+  }
+
+  @override
+  bool toDestroy = false;
+
+  @override
+  bool destroy() {
+    return toDestroy;
   }
 }

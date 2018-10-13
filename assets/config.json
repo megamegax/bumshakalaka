@@ -4,40 +4,58 @@
       "image_path": "green_apple.png",
       "target": "fridge",
       "frame_count": 1,
-      "image_width": 64,
-      "image_height": 64
+      "image_width": 74,
+      "image_height": 74
     },
     {
       "image_path": "red_apple.png",
       "target": "fridge",
       "frame_count": 1,
-      "image_width": 64,
-      "image_height": 64
+      "image_width": 74,
+      "image_height": 74
     },
     {
       "image_path": "cheese.png",
       "target": "fridge",
       "frame_count": 1,
-      "image_width": 64,
-      "image_height": 64
+      "image_width": 74,
+      "image_height": 74
     },
     {
       "image_path": "fish.png",
       "target": "fridge",
       "frame_count": 1,
-      "image_width": 64,
-      "image_height": 64
+      "image_width": 74,
+      "image_height": 74
     },
     {
       "image_path": "lemon.png",
       "target": "fridge",
       "frame_count": 1,
-      "image_width": 64,
-      "image_height": 64
+      "image_width": 74,
+      "image_height": 74
     },
     {
       "image_path": "whole_grilled_chicken.png",
       "target": "fridge",
+      "frame_count": 1,
+      "image_width": 74,
+      "image_height": 74
+    }, {
+      "image_path": "apple_core.png",
+      "target": "compost",
+      "frame_count": 1,
+      "image_width": 64,
+      "image_height": 64
+    },{
+      "image_path": "bone.png",
+      "target": "dog",
+      "frame_count": 1,
+      "image_width": 64,
+      "image_height": 64
+    },{
+      "image_path": "chicken_thigh_half.png",
+      "target": "dog",
       "frame_count": 1,
       "image_width": 64,
       "image_height": 64

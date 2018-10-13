@@ -1,7 +1,8 @@
+import 'package:bumshakalaka/Sprite.dart';
 import 'package:bumshakalaka/util/assert.dart';
 import 'package:flame/components/animation_component.dart';
 
-class Food extends AnimationComponent {
+class Food extends AnimationComponent implements Sprite {
   String imagePath;
   double speed;
   double animationSpeed;
@@ -30,6 +31,7 @@ class Food extends AnimationComponent {
 
   @override
   bool destroy() {
+    if (toDestroy) return true;
     if (destroyAction != null) {
       return destroyAction(this);
     } else {

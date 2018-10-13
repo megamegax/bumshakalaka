@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:bumshakalaka/Sprite.dart';
 import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/game/handler/drag_handler.dart';
 import 'package:bumshakalaka/logic/logic.dart';
@@ -10,6 +11,7 @@ import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:vibrate/vibrate.dart';
 
 class Game extends BaseGame {
   Logic logic;
@@ -17,6 +19,7 @@ class Game extends BaseGame {
   double _creationTimer = 0.0;
   bool init = false;
   bool gameStarted = false;
+  bool gameEnded = false;
 
   Game(Logic logic) {
     Assert.notNull(logic, "Logic must not be null!");
@@ -26,11 +29,36 @@ class Game extends BaseGame {
   @override
   void render(Canvas canvas) {
     super.render(canvas);
+    if (!gameEnded) {
+      String text = logic.totalScore.toString();
+      TextPainter p = Flame.util.text(text,
+          color: Colors.white, fontSize: 48.0, fontFamily: 'bitmapfont');
+      p.paint(canvas, new Offset(10.0, 20.0));
+    }
+    if (gameEnded) {
+      String text = "Score: ${logic.totalScore.toString()}";
+      TextPainter p = Flame.util.text(text,
+          color: Colors.white, fontSize: 48.0, fontFamily: 'bitmapfont');
+      p.paint(canvas, new Offset(10.0, 20.0));
 
-    String text = logic.totalScore.toString();
-    TextPainter p = Flame.util.text(text,
-        color: Colors.white, fontSize: 48.0, fontFamily: 'bitmapfont');
-    p.paint(canvas, new Offset(10.0, 20.0));
+      TextPainter gameOverPainter = Flame.util.text("GameOver",
+          color: Colors.white, fontSize: 48.0, fontFamily: 'bitmapfont');
+      gameOverPainter.paint(canvas, new Offset(120.0, 100.0));
+      TextPainter earthLivedForXMinutes = Flame.util.text(
+          "Gratulalunk! \n${logic.totalScore}-ban jol dontottel!",
+          color: Colors.white,
+          fontSize: 40.0,
+          textAlign: TextAlign.center,
+          fontFamily: 'bitmapfont');
+      earthLivedForXMinutes.paint(canvas, new Offset(30.0, 420.0));
+      TextPainter savedFood = Flame.util.text(
+          "Megmentettel \n${logic.totalScore}kg elelmiszert",
+          color: Colors.white,
+          fontSize: 40.0,
+          textAlign: TextAlign.center,
+          fontFamily: 'bitmapfont');
+      savedFood.paint(canvas, new Offset(80.0, 550.0));
+    }
   }
 
   @override
@@ -39,6 +67,9 @@ class Game extends BaseGame {
       _addBackground();
       _addTargets();
       _addFood(t);
+      if (logic.totalScore <= -5) {
+        _endGame();
+      }
     }
     super.update(t);
   }
@@ -141,9 +172,22 @@ class Game extends BaseGame {
   void _isFoodDragedToTarget(Food component) {
     for (Target target in logic.targets) {
       if (_isComponentInTarget(target, component)) {
-        logic.feedFoodTarget(target, component);
+        var result = logic.feedFoodTarget(target, component);
         component.toDestroy = true;
+        if (result < 0) {
+          Vibrate.vibrate();
+        }
       }
     }
+  }
+
+  void _endGame() {
+    for (Component component in components) {
+      if (component is Sprite) {
+        component.toDestroy = true;
+        gameEnded = true;
+      }
+    }
+    print("endgame");
   }
 }
