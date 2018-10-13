@@ -8,11 +8,11 @@ class Dumpster extends Target {
   int frameCount;
 
   @override
-  int imageHeight;
+  double imageHeight;
 
   @override
-  int imageWidth;
+  double imageWidth;
 
-  Dumpster(double x, double y, imagePath, frameCount)
+  Dumpster(double x, double y, {imagePath = 'dog.png', frameCount = 9})
       : super(x, y, imagePath, frameCount);
 }

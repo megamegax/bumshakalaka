@@ -31,8 +31,12 @@ class Main {
       'whole_grilled_chicken.png',
     ]);
     this.game = game;
+    runApp(game.widget);
+    final size = engine.initialDimensions();
+    size.then((size) {
+      game.start(size);
+    });
     engine.addGestureRecognizer(new ImmediateMultiDragGestureRecognizer()
       ..onStart = (Offset event) => game.input(event));
-    runApp(game.widget);
   }
 }

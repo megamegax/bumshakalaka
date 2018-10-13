@@ -25,7 +25,7 @@ void main() async {
           bundle: new TestAssetBundle(), child: game.widget),
     ));
 
-    when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
+    when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
     when(logic.getNextFood())
         .thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1));
     when(logic.foodLatency).thenReturn(1.0);
@@ -41,7 +41,7 @@ void main() async {
           bundle: new TestAssetBundle(), child: game.widget),
     ));
 
-    when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
+    when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
     when(logic.getNextFood())
         .thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1));
     when(logic.foodLatency).thenReturn(1.0);
@@ -57,7 +57,7 @@ void main() async {
           bundle: new TestAssetBundle(), child: game.widget),
     ));
 
-    when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
+    when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
     when(logic.getNextFood())
         .thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1));
     when(logic.foodLatency).thenReturn(1.0);
@@ -73,7 +73,7 @@ void main() async {
           bundle: new TestAssetBundle(), child: game.widget),
     ));
 
-    when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
+    when(logic.targets).thenReturn([new Dog(0.0, 0.0)]);
     when(logic.getNextFood())
         .thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1));
     when(logic.foodLatency).thenReturn(1.0);

@@ -8,11 +8,11 @@ class Fridge extends Target {
   int frameCount;
 
   @override
-  int imageHeight;
+  double imageHeight;
 
   @override
-  int imageWidth;
+  double imageWidth;
 
-  Fridge(double x, double y, imagePath, frameCount)
+  Fridge(double x, double y, {imagePath = 'dog.png', frameCount = 9})
       : super(x, y, imagePath, frameCount);
 }

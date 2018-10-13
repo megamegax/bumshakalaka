@@ -12,6 +12,7 @@ class Game extends BaseGame {
 
   double creationTimer = 0.0;
   bool init = false;
+  bool gameStarted = false;
 
   Game(Logic logic) {
     Assert.notNull(logic, "Logic must not be null!");
@@ -20,8 +21,10 @@ class Game extends BaseGame {
 
   @override
   void update(double t) {
-    _addTargets();
-    _addFood(t);
+    if (gameStarted) {
+      _addTargets();
+      _addFood(t);
+    }
     super.update(t);
   }
 
@@ -61,8 +64,8 @@ class Game extends BaseGame {
     components.forEach((component) {
       if (component is Food) {
         if (component.isTouched) {
-          component.y = details.globalPosition.dy;
-          component.x = details.globalPosition.dx;
+          component.y = details.globalPosition.dy - 32;
+          component.x = details.globalPosition.dx - 32;
         }
       }
     });
@@ -81,4 +84,10 @@ class Game extends BaseGame {
       event.dx <= component.x + component.width &&
       event.dy >= component.y &&
       event.dy <= component.y + component.height;
+
+  void start(Size screenSize) {
+    this.size = screenSize;
+    logic.start(screenSize);
+    this.gameStarted = true;
+  }
 }

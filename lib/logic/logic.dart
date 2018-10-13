@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/target/target.dart';
 
@@ -8,7 +10,9 @@ abstract class Logic {
   List<Target> targets;
   int earthState;
   double foodLatency;
-  void start();
+  Size screenSize;
+
+  void start(Size screenSize);
 
   int feedFoodTarget(Target target, Food food);
 

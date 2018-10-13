@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flame/flame.dart';
 import 'package:flutter/gestures.dart';
 
@@ -20,5 +22,9 @@ class FlameWrapper {
 
   void playAudio(String audioFile) {
     Flame.audio.play(audioFile, volume: 1.0);
+  }
+
+  Future<Size> initialDimensions() async {
+    return Flame.util.initialDimensions();
   }
 }
