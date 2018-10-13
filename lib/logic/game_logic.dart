@@ -23,7 +23,6 @@ class GameLogic extends Logic {
 
   @override
   void start() {
-    // TODO: implement start
     return null;
   }
 }

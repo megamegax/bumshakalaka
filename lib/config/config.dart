@@ -8,8 +8,6 @@ class Config {
   Config(this.foodConfig, this.targetConfig);
 
   Config.fromJson(Map<String, dynamic> configJson) {
-    //var configJson = json.decode(jsonObject);
-
     foodConfig = [];
     targetConfig = [];
     configJson["foods"].forEach((food) {
