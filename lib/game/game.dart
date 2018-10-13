@@ -20,9 +20,9 @@ class Game extends BaseGame {
   double _creationTimer = 0.0;
   bool init = false;
   bool gameStarted = false;
-  Window window;
-  bool hasToUpdateWindow = true;
-  bool gameEnded = false;
+  Window _window;
+  bool _hasToUpdateWindow = true;
+  bool _gameEnded = false;
 
   Game(Logic logic) {
     Assert.notNull(logic, "Logic must not be null!");
@@ -32,39 +32,17 @@ class Game extends BaseGame {
   @override
   void render(Canvas canvas) {
     super.render(canvas);
-    if (!gameEnded) {
-      String text = logic.getTotalScore().toString();
-      TextPainter p = Flame.util.text(text,
-          color: Colors.white, fontSize: 48.0, fontFamily: 'bitmapfont');
-      p.paint(canvas, new Offset(10.0, 20.0));
+    if (!_gameEnded) {
+      _printCurrentScore(canvas);
     }
-    if (gameEnded) {
-      String text = "Score: ${logic.getTotalScore().toString()}";
-      TextPainter p = Flame.util.text(text,
-          color: Colors.white, fontSize: 48.0, fontFamily: 'bitmapfont');
-      p.paint(canvas, new Offset(10.0, 20.0));
-
-      TextPainter gameOverPainter = Flame.util.text("Game Over!",
-          color: Colors.white, fontSize: 58.0, fontFamily: 'bitmapfont');
-      gameOverPainter.paint(canvas, new Offset(80.0, 100.0));
-      String successfulPercentageOfPlacements =
-          logic.getSuccessfulPercentageOfPlacements().toStringAsFixed(2);
-      TextPainter earthLivedForXMinutes = Flame.util.text(
-          "Gratulalunk! \nAz esetek\n$successfulPercentageOfPlacements%-ban\njol dontottel!",
-          color: Colors.white,
-          fontSize: 40.0,
-          textAlign: TextAlign.center,
-          fontFamily: 'bitmapfont');
-      earthLivedForXMinutes.paint(canvas, new Offset(90.0, 390.0));
-      TextPainter savedFood = Flame.util.text(
-          "Megmentettel \n${logic.getSuccessfulPlacementCount()}kg elelmiszert!",
-          color: Colors.white,
-          fontSize: 40.0,
-          textAlign: TextAlign.center,
-          fontFamily: 'bitmapfont');
-      savedFood.paint(canvas, new Offset(90.0, 580.0));
+    if (_gameEnded) {
+      _printFinalScore(canvas);
+      _printGameOver(canvas);
+      _printCongratPlayer(canvas);
+      _printHowMuchPlayerSaved(canvas);
     }
   }
+
 
   @override
   void update(double t) {
@@ -154,15 +132,15 @@ class Game extends BaseGame {
 
   bool _isComponentTapped(Offset event, Food component) =>
       event.dx >= component.x &&
-      event.dx <= component.x + component.width &&
-      event.dy >= component.y &&
-      event.dy <= component.y + component.height;
+          event.dx <= component.x + component.width &&
+          event.dy >= component.y &&
+          event.dy <= component.y + component.height;
 
   bool _isComponentInTarget(Target target, Food component) =>
       target.x + target.width >= component.x &&
-      target.x <= component.x + component.width &&
-      target.y + target.height >= component.y &&
-      target.y <= component.y + component.height;
+          target.x <= component.x + component.width &&
+          target.y + target.height >= component.y &&
+          target.y <= component.y + component.height;
 
   void start(Size screenSize) {
     this.size = screenSize;
@@ -183,17 +161,17 @@ class Game extends BaseGame {
   }
 
   void _updateWindow() {
-    if (hasToUpdateWindow) {
-      window = new Window(logic.screenSize.width / 2,
+    if (_hasToUpdateWindow) {
+      _window = new Window(logic.screenSize.width / 2,
           logic.screenSize.height / 3, logic.getWindowName());
-      window.x = logic.screenSize.width / 2.0 - window.width / 2 + 45;
-      window.y = logic.screenSize.height / 2.0 - window.height / 2 - 60;
-      add(window);
-      hasToUpdateWindow = false;
+      _window.x = logic.screenSize.width / 2.0 - _window.width / 2 + 45;
+      _window.y = logic.screenSize.height / 2.0 - _window.height / 2 - 60;
+      add(_window);
+      _hasToUpdateWindow = false;
     }
-    if (window.imagePath != logic.getWindowName()) {
-      window.toDestroy = true;
-      hasToUpdateWindow = true;
+    if (_window.imagePath != logic.getWindowName()) {
+      _window.toDestroy = true;
+      _hasToUpdateWindow = true;
     }
   }
 
@@ -201,8 +179,53 @@ class Game extends BaseGame {
     for (Component component in components) {
       if (component is Sprite) {
         component.toDestroy = true;
-        gameEnded = true;
+        _gameEnded = true;
       }
     }
+  }
+
+  void _printHowMuchPlayerSaved(Canvas canvas) {
+    var howMuchPlayerSaved =
+        "Megmentettel \n${logic
+        .getSuccessfulPlacementCount()}kg elelmiszert!";
+    _printText(canvas, howMuchPlayerSaved, new Offset(90.0, 580.0), 40.0);
+  }
+
+  void _printCongratPlayer(Canvas canvas) {
+    var successfulPercentageOfPlacements =
+    logic.getSuccessfulPercentageOfPlacements().toStringAsFixed(2);
+    var congratPlayerText =
+        "Gratulalunk! \nAz esetek\n$successfulPercentageOfPlacements%-ban\njol dontottel!";
+    _printText(canvas, congratPlayerText, new Offset(90.0, 390.0), 40.0);
+  }
+
+  void _printGameOver(Canvas canvas) {
+    var gameOverText = "Game Over!";
+    _printText(canvas, gameOverText, new Offset(80.0, 100.0), 58.0);
+  }
+
+  void _printFinalScore(Canvas canvas) {
+    var finalScoreText = "Score: ${logic.getTotalScore().toString()}";
+    _printText(canvas, finalScoreText, new Offset(10.0, 20.0));
+  }
+
+  void _printCurrentScore(Canvas canvas) {
+    var text = logic.getTotalScore().toString();
+    var textPainter = _createTextPainter(text);
+    textPainter.paint(canvas, new Offset(10.0, 20.0));
+  }
+
+  TextPainter _createTextPainter(String text, [double fontSize = 48.0]) {
+    return Flame.util.text(text,
+        fontSize: fontSize,
+        color: Colors.white,
+        fontFamily: 'bitmapfont',
+        textAlign: TextAlign.center);
+  }
+
+  void _printText(Canvas canvas, String text, Offset offset,
+      [double fontSize = 48.0]) {
+    var textPainter = _createTextPainter(text, fontSize)
+    textPainter.paint(canvas, offset);
   }
 }
