@@ -51,6 +51,8 @@ class Main {
       'lemon.png',
       'green_apple.png',
       'whole_grilled_chicken.png',
+      'walls.png',
+      'window.png'
     ]);
     this.game = game;
     runApp(game.widget);

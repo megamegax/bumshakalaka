@@ -23,12 +23,7 @@ class GameLogic extends Logic {
   SpeedCalculator _speedCalculator;
   DateTime _startTime;
 
-  final Map<String, Coordinates> _targetCoordinates = {
-    "dumpster": new Coordinates(190.0, 550.0),
-    "dog": new Coordinates(300.0, 550.0),
-    "fridge": new Coordinates(0.0, 550.0),
-    "compost": new Coordinates(100.0, 550.0)
-  };
+  Map<String, Coordinates> _targetCoordinates = {};
 
   GameLogic(
       this._config, this._foodProvider, this._random, this._speedCalculator);
@@ -67,7 +62,14 @@ class GameLogic extends Logic {
 
   @override
   void start(Size screenSize) {
+    this.screenSize = screenSize;
     _startTime = DateTime.now();
+    _targetCoordinates = {
+      "dumpster": new Coordinates(190.0, screenSize.height - 150.0),
+      "dog": new Coordinates(260.0, screenSize.height - 210.0),
+      "fridge": new Coordinates(90.0, screenSize.height - 280.0),
+      "compost": new Coordinates(-30.0, screenSize.height - 150)
+    };
 
     this.targets = _config.targetConfigs
         .map((tc) => new Target(
@@ -78,8 +80,6 @@ class GameLogic extends Logic {
             tc.imageWidth.toDouble(),
             tc.imageHeight.toDouble()))
         .toList();
-
-    this.screenSize = screenSize;
   }
 
   Food _createFood(

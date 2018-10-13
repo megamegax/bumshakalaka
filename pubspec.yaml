@@ -40,15 +40,20 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/fridge.png
+    - assets/images/fridge_big.png
     - assets/images/compost.png
+    - assets/images/compost_big.png
     - assets/images/dumpster.png
     - assets/images/dog.png
+    - assets/images/dog_big.png
     - assets/images/green_apple.png
     - assets/images/red_apple.png
     - assets/images/fish.png
     - assets/images/whole_grilled_chicken.png
     - assets/images/cheese.png
     - assets/images/lemon.png
+    - assets/images/walls.png
+    - assets/images/window.png
     - assets/audio/megaman.mp3
     - assets/config.json
   fonts:

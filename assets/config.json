@@ -45,32 +45,25 @@
   ],
   "targets": [
     {
-      "name": "dumpster",
-      "image_path": "dumpster.png",
-      "frame_count": 7,
-      "image_width": 128,
-      "image_height": 128
-    },
-    {
       "name": "dog",
-      "image_path": "dog.png",
+      "image_path": "dog_big.png",
       "frame_count": 8,
-      "image_width": 110,
-      "image_height": 128
+      "image_width": 155,
+      "image_height": 182
     },
     {
       "name": "fridge",
-      "image_path": "fridge.png",
-      "frame_count": 8,
-      "image_width": 128,
-      "image_height": 128
+      "image_path": "fridge_big.png",
+      "frame_count": 11,
+      "image_width": 214,
+      "image_height": 214
     },
     {
       "name": "compost",
-      "image_path": "compost.png",
+      "image_path": "compost_big.png",
       "frame_count": 8,
-      "image_width": 122,
-      "image_height": 128
+      "image_width": 173,
+      "image_height": 182
     }
   ]
 }

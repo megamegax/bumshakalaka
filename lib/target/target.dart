@@ -13,7 +13,7 @@ class Target extends AnimationComponent {
   Target(this.name, Coordinates c, imagePath, frameCount, double imageWidth,
       double imageHeight)
       : super.sequenced(imageWidth, imageHeight, imagePath, frameCount,
-            textureWidth: imageWidth, textureHeight: imageHeight) {
+            textureWidth: imageWidth + 10, textureHeight: imageHeight + 10) {
     Assert.notNull(c.x, 'X must not be null!');
     Assert.notNull(c.y, 'Y must not be null!');
     Assert.notNull(frameCount, 'frameCount must not be null!');

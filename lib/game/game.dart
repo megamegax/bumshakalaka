@@ -5,6 +5,7 @@ import 'package:bumshakalaka/game/handler/drag_handler.dart';
 import 'package:bumshakalaka/logic/logic.dart';
 import 'package:bumshakalaka/target/target.dart';
 import 'package:bumshakalaka/util/assert.dart';
+import 'package:flame/components/component.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
@@ -35,6 +36,7 @@ class Game extends BaseGame {
   @override
   void update(double t) {
     if (gameStarted) {
+      _addBackground();
       _addTargets();
       _addFood(t);
     }
@@ -58,6 +60,18 @@ class Game extends BaseGame {
       add(logic.getNextFood(destroyAction));
     }
     _creationTimer += t;
+  }
+
+  void _addBackground() {
+    if (!init) {
+      add(new SpriteComponent.rectangle(
+          logic.screenSize.width, logic.screenSize.height, "walls.png"));
+      var window = new SpriteComponent.rectangle(logic.screenSize.width / 2,
+          logic.screenSize.height / 3, "window.png");
+      window.x = logic.screenSize.width / 2.0 - window.width / 2 + 45;
+      window.y = logic.screenSize.height / 2.0 - window.height / 2 - 60;
+      add(window);
+    }
   }
 
   void _addTargets() {
