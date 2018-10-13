@@ -60,6 +60,8 @@ flutter:
     - assets/images/window.png
     - assets/images/window_dry_tree.png
     - assets/images/window_moon.png
+    - assets/images/banana_peel.png
+    - assets/images/watermelon_peel_big_64_33.png
     - assets/audio/megaman.mp3
     - assets/config.json
   fonts:
