@@ -13,7 +13,8 @@ class FoodProvider {
 
   Food getFood(double speed, bool Function(Food food) destroyAction) {
     FoodConfig foodConfig = _foods[_random.nextInt(_foods.length)];
-    double xCoord = _random.nextDouble() * screenWidth;
+    double xCoord =
+        _random.nextDouble() * (screenWidth - foodConfig.imageWidth);
     return Food(
         xCoord,
         0.0,
