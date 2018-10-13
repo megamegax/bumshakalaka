@@ -111,7 +111,7 @@ class GameLogic extends Logic {
     int unsuccessfulPlacements = _scoreStore.retrieveUnsuccessfulPlacement();
     if (unsuccessfulPlacements < 20) {
       return "window.png";
-    } else if (unsuccessfulPlacements < 40) {
+    } else if (unsuccessfulPlacements < 45) {
       return "window_dry_tree.png";
     } else {
       return "window_moon.png";
