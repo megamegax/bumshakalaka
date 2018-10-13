@@ -5,6 +5,7 @@ import 'package:bumshakalaka/config/config.dart';
 import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/food/food_dto.dart';
 import 'package:bumshakalaka/food/food_provider.dart';
+import 'package:bumshakalaka/history/score_store.dart';
 import 'package:bumshakalaka/logic/logic.dart';
 import 'package:bumshakalaka/logic/speed_calculator.dart';
 import 'package:bumshakalaka/target/target.dart';
@@ -22,15 +23,14 @@ class GameLogic extends Logic {
   final Random _random;
   SpeedCalculator _speedCalculator;
   DateTime _startTime;
+  ScoreStore _scoreStore;
 
-  Map<String, Coordinates> _targetCoordinates = {};
-
-  GameLogic(
-      this._config, this._foodProvider, this._random, this._speedCalculator);
+  GameLogic(this._config, this._foodProvider, this._random,
+      this._speedCalculator, this._scoreStore);
 
   @override
   double foodLatency() {
-    return _random.nextDouble() + 1.3;
+    return _random.nextDouble() + 1.7;
   }
 
   @override
@@ -39,24 +39,25 @@ class GameLogic extends Logic {
     var goodTarget =
         targets.firstWhere((target) => target.name == targetString);
     if (goodTarget == target) {
-      totalScore++;
+      _scoreStore.incrementScore(1);
       return 1;
     } else {
-      totalScore--;
+      _scoreStore.decrementScore(1);
       return -1;
     }
   }
 
   @override
   Food getNextFood(bool Function(Food food) destroyAction) {
-    var speed = _speedCalculator.calculateSpeed(totalScore, _startTime);
+    var speed = _speedCalculator.calculateSpeed(
+        _scoreStore.retrieveTotalScore(), _startTime);
     var food = _foodProvider.getFood();
     return _createFood(food, speed, destroyAction);
   }
 
   @override
   int missedFood(Food food) {
-    totalScore--;
+    _scoreStore.decrementScore(1);
     return -1;
   }
 
@@ -64,7 +65,7 @@ class GameLogic extends Logic {
   void start(Size screenSize) {
     this.screenSize = screenSize;
     _startTime = DateTime.now();
-    _targetCoordinates = {
+    Map<String, Coordinates> targetCoordinates = {
       "dumpster": new Coordinates(190.0, screenSize.height - 150.0),
       "dog": new Coordinates(260.0, screenSize.height - 210.0),
       "fridge": new Coordinates(90.0, screenSize.height - 280.0),
@@ -74,12 +75,17 @@ class GameLogic extends Logic {
     this.targets = _config.targetConfigs
         .map((tc) => new Target(
             tc.name,
-            _targetCoordinates[tc.name],
+            targetCoordinates[tc.name],
             tc.imagePath,
             tc.frameCount,
             tc.imageWidth.toDouble(),
             tc.imageHeight.toDouble()))
         .toList();
+  }
+
+  @override
+  int getTotalScore() {
+    return _scoreStore.retrieveTotalScore();
   }
 
   Food _createFood(
@@ -88,5 +94,32 @@ class GameLogic extends Logic {
         _random.nextDouble() * (this.screenSize.width - food.imageWidth);
     return Food(xCoord, 0.0, food.imagePath, speed, food.imageWidth.toDouble(),
         food.imageHeight.toDouble(), food.frameCount, destroyAction);
+  }
+
+  @override
+  double getSuccessfulPercentageOfPlacements() {
+    return _scoreStore.retrieveSuccessfulPlacementPercentage();
+  }
+
+  @override
+  int getUnsuccessfulPlacementCount() {
+    return _scoreStore.retrieveUnsuccessfulPlacement();
+  }
+
+  @override
+  String getWindowName() {
+    int unsuccessfulPlacements = _scoreStore.retrieveUnsuccessfulPlacement();
+    if (unsuccessfulPlacements < 20) {
+      return "window.png";
+    } else if (unsuccessfulPlacements < 40) {
+      return "window_dry_tree.png";
+    } else {
+      return "window_moon.png";
+    }
+  }
+
+  @override
+  int getSuccessfulPlacementCount() {
+    return _scoreStore.retrieveSuccessfulPlacement();
   }
 }

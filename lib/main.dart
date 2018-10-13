@@ -6,6 +6,7 @@ import 'package:bumshakalaka/config/config.dart';
 import 'package:bumshakalaka/food/food_provider.dart';
 import 'package:bumshakalaka/game/flame_wrapper.dart';
 import 'package:bumshakalaka/game/game.dart';
+import 'package:bumshakalaka/history/score_store.dart';
 import 'package:bumshakalaka/logic/game_logic.dart';
 import 'package:bumshakalaka/logic/speed_calculator.dart';
 import 'package:flutter/gestures.dart';
@@ -24,7 +25,9 @@ GameLogic _createGameLogic(Config config) {
   var random = new Random();
   var foodProvider = new FoodProvider(config.foodConfigs, random);
   var speedCalculator = new SpeedCalculator(40.0, 5.0);
-  var gameLogic = new GameLogic(config, foodProvider, random, speedCalculator);
+  var scoreStore = new ScoreStore(DateTime.now());
+  var gameLogic =
+      new GameLogic(config, foodProvider, random, speedCalculator, scoreStore);
   return gameLogic;
 }
 
@@ -52,7 +55,9 @@ class Main {
       'green_apple.png',
       'whole_grilled_chicken.png',
       'walls.png',
-      'window.png'
+      'window.png',
+      'window_dry_tree.png',
+      'window_moon.png'
     ]);
     this.game = game;
     runApp(game.widget);

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:bumshakalaka/Sprite.dart';
 import 'package:bumshakalaka/food/food.dart';
+import 'package:bumshakalaka/game/component/window.dart';
 import 'package:bumshakalaka/game/handler/drag_handler.dart';
 import 'package:bumshakalaka/logic/logic.dart';
 import 'package:bumshakalaka/target/target.dart';
@@ -19,6 +20,8 @@ class Game extends BaseGame {
   double _creationTimer = 0.0;
   bool init = false;
   bool gameStarted = false;
+  Window window;
+  bool hasToUpdateWindow = true;
   bool gameEnded = false;
 
   Game(Logic logic) {
@@ -30,13 +33,13 @@ class Game extends BaseGame {
   void render(Canvas canvas) {
     super.render(canvas);
     if (!gameEnded) {
-      String text = logic.totalScore.toString();
+      String text = logic.getTotalScore().toString();
       TextPainter p = Flame.util.text(text,
           color: Colors.white, fontSize: 48.0, fontFamily: 'bitmapfont');
       p.paint(canvas, new Offset(10.0, 20.0));
     }
     if (gameEnded) {
-      String text = "Score: ${logic.totalScore.toString()}";
+      String text = "Score: ${logic.getTotalScore().toString()}";
       TextPainter p = Flame.util.text(text,
           color: Colors.white, fontSize: 48.0, fontFamily: 'bitmapfont');
       p.paint(canvas, new Offset(10.0, 20.0));
@@ -45,14 +48,14 @@ class Game extends BaseGame {
           color: Colors.white, fontSize: 48.0, fontFamily: 'bitmapfont');
       gameOverPainter.paint(canvas, new Offset(120.0, 100.0));
       TextPainter earthLivedForXMinutes = Flame.util.text(
-          "Gratulalunk! \n${logic.totalScore}-ban jol dontottel!",
+          "Gratulalunk! \n${logic.getSuccessfulPercentageOfPlacements()}%-ban jol dontottel!",
           color: Colors.white,
           fontSize: 40.0,
           textAlign: TextAlign.center,
           fontFamily: 'bitmapfont');
       earthLivedForXMinutes.paint(canvas, new Offset(30.0, 420.0));
       TextPainter savedFood = Flame.util.text(
-          "Megmentettel \n${logic.totalScore}kg elelmiszert",
+          "Megmentettel \n${logic.getSuccessfulPlacementCount()}kg elelmiszert",
           color: Colors.white,
           fontSize: 40.0,
           textAlign: TextAlign.center,
@@ -65,9 +68,10 @@ class Game extends BaseGame {
   void update(double t) {
     if (gameStarted) {
       _addBackground();
+      _updateWindow();
       _addTargets();
       _addFood(t);
-      if (logic.totalScore <= -5) {
+      if (logic.getUnsuccessfulPlacementCount() >= 50) {
         _endGame();
       }
     }
@@ -97,11 +101,6 @@ class Game extends BaseGame {
     if (!init) {
       add(new SpriteComponent.rectangle(
           logic.screenSize.width, logic.screenSize.height, "walls.png"));
-      var window = new SpriteComponent.rectangle(logic.screenSize.width / 2,
-          logic.screenSize.height / 3, "window.png");
-      window.x = logic.screenSize.width / 2.0 - window.width / 2 + 45;
-      window.y = logic.screenSize.height / 2.0 - window.height / 2 - 60;
-      add(window);
     }
   }
 
@@ -181,6 +180,21 @@ class Game extends BaseGame {
     }
   }
 
+  void _updateWindow() {
+    if (hasToUpdateWindow) {
+      window = new Window(logic.screenSize.width / 2,
+          logic.screenSize.height / 3, logic.getWindowName());
+      window.x = logic.screenSize.width / 2.0 - window.width / 2 + 45;
+      window.y = logic.screenSize.height / 2.0 - window.height / 2 - 60;
+      add(window);
+      hasToUpdateWindow = false;
+    }
+    if (window.imagePath != logic.getWindowName()) {
+      window.toDestroy = true;
+      hasToUpdateWindow = true;
+    }
+  }
+
   void _endGame() {
     for (Component component in components) {
       if (component is Sprite) {
@@ -188,6 +202,5 @@ class Game extends BaseGame {
         gameEnded = true;
       }
     }
-    print("endgame");
   }
 }

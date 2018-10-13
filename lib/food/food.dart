@@ -30,6 +30,11 @@ class Food extends AnimationComponent implements Sprite {
   }
 
   @override
+  int priority() {
+    return 1;
+  }
+
+  @override
   bool destroy() {
     if (toDestroy) return true;
     if (destroyAction != null) {

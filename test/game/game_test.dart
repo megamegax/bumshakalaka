@@ -33,6 +33,7 @@ void main() {
             bundle: new TestAssetBundle(), child: game.widget),
       ));
       when(logic.screenSize).thenReturn(new Size(200.0, 200.0));
+      when(logic.getWindowName()).thenReturn("");
       when(logic.targets)
           .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood(any)).thenReturn(DomainObject.createFood());
@@ -52,6 +53,8 @@ void main() {
         home: new DefaultAssetBundle(
             bundle: new TestAssetBundle(), child: game.widget),
       ));
+      when(logic.getWindowName()).thenReturn("");
+
       when(logic.screenSize).thenReturn(new Size(200.0, 200.0));
       when(logic.targets)
           .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);

@@ -4,7 +4,6 @@ import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/target/target.dart';
 
 abstract class Logic {
-  int totalScore = 0;
   int speed;
   Duration elapsedTime;
   List<Target> targets;
@@ -20,4 +19,12 @@ abstract class Logic {
   int missedFood(Food food);
 
   Food getNextFood(bool Function(Food food) destroyAction);
+
+  int getTotalScore();
+  int getUnsuccessfulPlacementCount();
+  int getSuccessfulPlacementCount();
+
+  String getWindowName();
+
+  double getSuccessfulPercentageOfPlacements();
 }
