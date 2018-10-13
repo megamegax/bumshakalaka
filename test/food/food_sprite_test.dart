@@ -26,10 +26,14 @@ void main() async {
     ));
 
     when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
-    when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
+    when(logic.getNextFood())
+        .thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1));
     when(logic.foodLatency).thenReturn(1.0);
 
-    expect(() => new Food(null, 1.0, 'dog.png', 10), throwsArgumentError);
+    expect(
+        () =>
+            new Food(null, 1.0, 'kutya.png', 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 10),
+        throwsArgumentError);
   });
 
   testWidgets('FoodSprite Constructor Y must not be null!',
@@ -40,13 +44,17 @@ void main() async {
     ));
 
     when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
-    when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
+    when(logic.getNextFood())
+        .thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1));
     when(logic.foodLatency).thenReturn(1.0);
 
-    expect(() => new Food(1.0, null, 'dog.png', 10), throwsArgumentError);
+    expect(
+        () =>
+            new Food(1.0, null, 'kutya.png', 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 10),
+        throwsArgumentError);
   });
 
-  testWidgets('FoodSprite Constructor animationCount must not be null!',
+  testWidgets('FoodSprite Constructor frameCount must not be null!',
       (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(
       home: new DefaultAssetBundle(
@@ -54,10 +62,14 @@ void main() async {
     ));
 
     when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
-    when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
+    when(logic.getNextFood())
+        .thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 64.0, 64.0, 1.0, 1.0, 1));
     when(logic.foodLatency).thenReturn(1.0);
 
-    expect(() => new Food(1.0, 1.0, 'dog.png', null), throwsArgumentError);
+    expect(
+        () =>
+            new Food(1.0, null, "dog.png", 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, null),
+        throwsArgumentError);
   });
 
   testWidgets('FoodSprite update should change y coordinate',
@@ -68,10 +80,12 @@ void main() async {
     ));
 
     when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
-    when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
+    when(logic.getNextFood())
+        .thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 64.0, 64.0, 1.0, 1.0, 1));
     when(logic.foodLatency).thenReturn(1.0);
 
-    Food food = new Food(1.0, 1.0, 'dog.png', 1);
+    Food food =
+        new Food(1.0, 1.0, "dog.png", 10.0, 1.0, 64.0, 64.0, 1.0, 1.0, 1);
     expect(food.x, 1.0);
     expect(food.y, 1.0);
     food.update(0.1);

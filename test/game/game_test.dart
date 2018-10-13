@@ -34,13 +34,14 @@ void main() {
       ));
 
       when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
-      when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
+      when(logic.getNextFood())
+          .thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1));
       when(logic.foodLatency).thenReturn(1.0);
       widget.expect(game.init, false);
-      game.update(0);
+      game.update(0.0);
       widget.expect(game.components.length, 1);
       widget.expect(game.init, true);
-      game.update(0);
+      game.update(0.0);
       widget.expect(game.components.length, 1);
     });
 
@@ -52,11 +53,12 @@ void main() {
       ));
 
       when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
-      when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
+      when(logic.getNextFood())
+          .thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1));
       when(logic.foodLatency).thenReturn(1.0);
-      game.update(1);
+      game.update(1.0);
       widget.expect(game.components.length, 1);
-      game.update(1);
+      game.update(1.0);
       widget.expect(game.components.length, 2);
     });
   });
@@ -70,10 +72,12 @@ void main() {
       ));
 
       when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
-      when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
+      when(logic.getNextFood()).thenReturn(
+          new Food(0.0, 0.0, "", 1.0, 1.0, 64.0, 64.0, 1.0, 1.0, 1));
       when(logic.foodLatency).thenReturn(1.0);
 
-      game.components.add(new Food(0.0, 0.0, "", 1));
+      game.components
+          .add(new Food(0.0, 0.0, "", 1.0, 1.0, 64.0, 64.0, 1.0, 1.0, 1));
       expect((game.components.first as Food).isTouched, false);
       game.input(new Offset(32.0, 32.0));
       expect((game.components.first as Food).isTouched, true);
@@ -87,10 +91,12 @@ void main() {
       ));
 
       when(logic.targets).thenReturn([new Dog(0.0, 0.0, "", 1)]);
-      when(logic.getNextFood()).thenReturn(new Food(0.0, 0.0, "", 1));
+      when(logic.getNextFood()).thenReturn(
+          new Food(0.0, 0.0, "", 1.0, 1.0, 64.0, 64.0, 1.0, 1.0, 1));
       when(logic.foodLatency).thenReturn(1.0);
 
-      game.components.add(new Food(0.0, 0.0, "", 1));
+      game.components
+          .add(new Food(0.0, 0.0, "", 1.0, 1.0, 64.0, 64.0, 1.0, 1.0, 1));
       expect((game.components.first as Food).isTouched, false);
       game.input(new Offset(99.0, 99.0));
       expect((game.components.first as Food).isTouched, false);

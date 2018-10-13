@@ -3,23 +3,35 @@ import 'package:flame/components/animation_component.dart';
 
 class Food extends AnimationComponent {
   String imagePath;
-  double speed = 10;
-  double animationSpeed = 0.75;
-  int animationCount = 1;
-  double imageWidth = 64.0;
-  double imageHeight = 64.0;
-  bool isTouched = false;
+  double speed;
+  double animationSpeed;
+  int frameCount;
+  double imageWidth;
+  double imageHeight;
+  double textureWidth;
+  double textureHeight;
+  bool isTouched;
 
-  Food(double x, double y, imagePath, animationCount)
-      : super.sequenced(64.0, 64.0, imagePath, 1,
-            textureWidth: 64.0, textureHeight: 64.0) {
+  Food(
+      double x,
+      double y,
+      this.imagePath,
+      this.speed,
+      this.animationSpeed,
+      this.imageWidth,
+      this.imageHeight,
+      this.textureWidth,
+      this.textureHeight,
+      frameCount)
+      : super.sequenced(imageWidth, imageHeight, imagePath, 1,
+            textureWidth: textureWidth, textureHeight: textureHeight) {
     Assert.notNull(x, 'X must not be null!');
     Assert.notNull(y, 'Y must not be null!');
-    Assert.notNull(animationCount, 'animationCount must not be null!');
+    Assert.notNull(frameCount, 'frameCount must not be null!');
     this.x = x;
     this.y = y;
-    this.imagePath = imagePath;
-    this.animationCount = animationCount;
+    this.isTouched = false;
+    this.frameCount = frameCount;
     this.animation.stepTime = animationSpeed / 7;
   }
 

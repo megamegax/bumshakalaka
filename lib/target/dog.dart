@@ -5,7 +5,7 @@ class Dog extends Target {
   String imagePath = "dog.png";
 
   @override
-  int animationCount;
+  int frameCount;
 
   @override
   int imageHeight;
@@ -13,6 +13,6 @@ class Dog extends Target {
   @override
   int imageWidth;
 
-  Dog(double x, double y, imagePath, animationCount)
-      : super(x, y, imagePath, animationCount);
+  Dog(double x, double y, imagePath, frameCount)
+      : super(x, y, imagePath, frameCount);
 }

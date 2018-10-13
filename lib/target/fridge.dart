@@ -5,7 +5,7 @@ class Fridge extends Target {
   String imagePath = "fridge.png";
 
   @override
-  int animationCount;
+  int frameCount;
 
   @override
   int imageHeight;
@@ -13,6 +13,6 @@ class Fridge extends Target {
   @override
   int imageWidth;
 
-  Fridge(double x, double y, imagePath, animationCount)
-      : super(x, y, imagePath, animationCount);
+  Fridge(double x, double y, imagePath, frameCount)
+      : super(x, y, imagePath, frameCount);
 }

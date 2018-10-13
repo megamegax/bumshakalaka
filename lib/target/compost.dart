@@ -5,7 +5,7 @@ class Compost extends Target {
   String imagePath = "compost.png";
 
   @override
-  int animationCount;
+  int frameCount;
 
   @override
   int imageHeight;
@@ -13,6 +13,6 @@ class Compost extends Target {
   @override
   int imageWidth;
 
-  Compost(double x, double y, imagePath, animationCount)
-      : super(x, y, imagePath, animationCount);
+  Compost(double x, double y, imagePath, frameCount)
+      : super(x, y, imagePath, frameCount);
 }

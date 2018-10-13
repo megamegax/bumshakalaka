@@ -5,7 +5,7 @@ class Dumpster extends Target {
   String imagePath = "dumpster.png";
 
   @override
-  int animationCount;
+  int frameCount;
 
   @override
   int imageHeight;
@@ -13,6 +13,6 @@ class Dumpster extends Target {
   @override
   int imageWidth;
 
-  Dumpster(double x, double y, imagePath, animationCount)
-      : super(x, y, imagePath, animationCount);
+  Dumpster(double x, double y, imagePath, frameCount)
+      : super(x, y, imagePath, frameCount);
 }
