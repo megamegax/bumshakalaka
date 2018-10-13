@@ -14,8 +14,8 @@ class Coordinates {
 }
 
 class GameLogic extends Logic {
-  Config _config;
-  FoodProvider _foodProvider;
+  final Config _config;
+  final FoodProvider _foodProvider;
 
   final Map<String, Coordinates> _targetCoordinates = {
     "dumpster": new Coordinates(190.0, 550.0),
@@ -36,7 +36,7 @@ class GameLogic extends Logic {
 
   @override
   Food getNextFood(bool Function(Food food) destroyAction) {
-    return _foodProvider.getFood(10.0, screenSize.width, destroyAction);
+    return _foodProvider.getFood(10.0, destroyAction);
   }
 
   @override
@@ -58,5 +58,6 @@ class GameLogic extends Logic {
         .toList();
 
     this.screenSize = screenSize;
+    this._foodProvider.screenWidth = screenSize.width;
   }
 }

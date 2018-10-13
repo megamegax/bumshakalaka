@@ -39,9 +39,9 @@ void main() {
           destroyAction);
 
       var foodProvider = new FoodProvider(foodConfig, randomMock);
+      foodProvider.screenWidth = screenWidth;
 
-      expect(foodProvider.getFood(speed, screenWidth, destroyAction),
-          expectedFood);
+      expect(foodProvider.getFood(speed, destroyAction), expectedFood);
     });
 
 //    test("should return the target of a food", () {

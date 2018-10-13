@@ -7,11 +7,11 @@ import 'package:bumshakalaka/target/target.dart';
 class FoodProvider {
   final List<FoodConfig> _foods;
   final Random _random;
+  double screenWidth;
 
   FoodProvider(this._foods, this._random);
 
-  Food getFood(double speed, double screenWidth,
-      bool Function(Food food) destroyAction) {
+  Food getFood(double speed, bool Function(Food food) destroyAction) {
     FoodConfig foodConfig = _foods[_random.nextInt(_foods.length)];
     double xCoord = _random.nextDouble() * screenWidth;
     return Food(
