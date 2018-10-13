@@ -44,9 +44,9 @@ class Game extends BaseGame {
           color: Colors.white, fontSize: 48.0, fontFamily: 'bitmapfont');
       p.paint(canvas, new Offset(10.0, 20.0));
 
-      TextPainter gameOverPainter = Flame.util.text("GameOver",
-          color: Colors.white, fontSize: 48.0, fontFamily: 'bitmapfont');
-      gameOverPainter.paint(canvas, new Offset(120.0, 100.0));
+      TextPainter gameOverPainter = Flame.util.text("Game Over!",
+          color: Colors.white, fontSize: 58.0, fontFamily: 'bitmapfont');
+      gameOverPainter.paint(canvas, new Offset(80.0, 100.0));
       String successfulPercentageOfPlacements =
           logic.getSuccessfulPercentageOfPlacements().toStringAsFixed(2);
       TextPainter earthLivedForXMinutes = Flame.util.text(
