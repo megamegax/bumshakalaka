@@ -44,7 +44,7 @@ class Game extends BaseGame {
   void _addFood(double t) {
     if (_creationTimer >= logic.foodLatency) {
       _creationTimer = 0.0;
-      add(logic.getNextFood((Food food) {
+      Function destroyAction = (Food food) {
         if (food.y > logic.screenSize.height) {
           logic.missedFood(food);
           return true;
@@ -54,7 +54,8 @@ class Game extends BaseGame {
           }
           return false;
         }
-      }));
+      };
+      add(logic.getNextFood(destroyAction));
     }
     _creationTimer += t;
   }

@@ -28,16 +28,10 @@ void main() async {
     when(logic.targets).thenReturn([DomainObject.createTarget()]);
     when(logic.getNextFood((food) {
       return false;
-    })).thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1, (food) {
-      return false;
-    }));
+    })).thenReturn(DomainObject.createFood());
     when(logic.foodLatency).thenReturn(1.0);
 
-    expect(
-        () => new Food(null, 1.0, 'kutya.png', 1.0, 1.0, 1.0, 10, (food) {
-              return false;
-            }),
-        throwsArgumentError);
+    expect(() => DomainObject.createFood(x: null), throwsArgumentError);
   });
 
   testWidgets('FoodSprite Constructor Y must not be null!',
@@ -50,16 +44,10 @@ void main() async {
     when(logic.targets).thenReturn([DomainObject.createTarget()]);
     when(logic.getNextFood((food) {
       return false;
-    })).thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1, (food) {
-      return false;
-    }));
+    })).thenReturn(DomainObject.createFood());
     when(logic.foodLatency).thenReturn(1.0);
 
-    expect(
-        () => new Food(1.0, null, 'kutya.png', 1.0, 1.0, 1.0, 10, (food) {
-              return false;
-            }),
-        throwsArgumentError);
+    expect(() => DomainObject.createFood(y: null), throwsArgumentError);
   });
 
   testWidgets('FoodSprite Constructor frameCount must not be null!',
@@ -72,16 +60,11 @@ void main() async {
     when(logic.targets).thenReturn([DomainObject.createTarget()]);
     when(logic.getNextFood((food) {
       return false;
-    })).thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, (food) {
-      return false;
-    }));
+    })).thenReturn(DomainObject.createFood());
     when(logic.foodLatency).thenReturn(1.0);
 
     expect(
-        () => new Food(1.0, null, "dog.png", 1.0, 1.0, 1.0, null, (food) {
-              return false;
-            }),
-        throwsArgumentError);
+        () => DomainObject.createFood(frameCount: null), throwsArgumentError);
   });
 
   testWidgets('FoodSprite update should change y coordinate',
@@ -94,14 +77,10 @@ void main() async {
     when(logic.targets).thenReturn([DomainObject.createTarget()]);
     when(logic.getNextFood((food) {
       return false;
-    })).thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, (food) {
-      return false;
-    }));
+    })).thenReturn(DomainObject.createFood());
     when(logic.foodLatency).thenReturn(1.0);
 
-    Food food = new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, (food) {
-      return false;
-    });
+    Food food = DomainObject.createFood(x: 1.0, y: 1.0, speed: 10);
     expect(food.x, 1.0);
     expect(food.y, 1.0);
     food.update(0.1);

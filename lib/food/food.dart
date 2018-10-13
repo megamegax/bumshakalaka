@@ -30,7 +30,11 @@ class Food extends AnimationComponent {
 
   @override
   bool destroy() {
-    return destroyAction(this);
+    if (destroyAction != null) {
+      return destroyAction(this);
+    } else {
+      return false;
+    }
   }
 
   @override

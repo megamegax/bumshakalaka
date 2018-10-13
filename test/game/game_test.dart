@@ -35,11 +35,7 @@ void main() {
 
       when(logic.targets)
           .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
-      when(logic.getNextFood((food) {
-        return false;
-      })).thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1, (food) {
-        return false;
-      }));
+      when(logic.getNextFood(any)).thenReturn(DomainObject.createFood());
       when(logic.foodLatency).thenReturn(1.0);
       game.gameStarted = true;
       widget.expect(game.init, false);
@@ -58,11 +54,7 @@ void main() {
       ));
       when(logic.targets)
           .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
-      when(logic.getNextFood((food) {
-        return false;
-      })).thenReturn(new Food(0.0, 0.0, "", 1.0, 1.0, 1.0, 1, (food) {
-        return false;
-      }));
+      when(logic.getNextFood(any)).thenReturn(DomainObject.createFood());
 
       game.gameStarted = true;
       when(logic.foodLatency).thenReturn(1.0);
@@ -74,6 +66,9 @@ void main() {
   });
 
   group("input", () {
+    logic = new MockLogic();
+    game = new Game(logic);
+
     widget.testWidgets('should detect currently tapped food',
         (widget.WidgetTester tester) async {
       await tester.pumpWidget(new MaterialApp(
@@ -85,14 +80,11 @@ void main() {
           .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood((food) {
         return false;
-      })).thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, (food) {
-        return false;
-      }));
+      })).thenReturn(DomainObject.createFood(x: 0.0, y: 0.0));
       when(logic.foodLatency).thenReturn(1.0);
 
-      game.components.add(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, (food) {
-        return false;
-      }));
+      game.components.add(DomainObject.createFood(
+          x: 0.0, y: 0.0, imageWidth: 64.0, imageHeight: 64.0));
       expect((game.components.first as Food).isTouched, false);
       game.input(new Offset(32.0, 32.0));
       expect((game.components.first as Food).isTouched, true);
@@ -109,14 +101,10 @@ void main() {
           .thenReturn([DomainObject.createTarget(x: 0.0, y: 0.0)]);
       when(logic.getNextFood((food) {
         return false;
-      })).thenReturn(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, (food) {
-        return false;
-      }));
+      })).thenReturn(DomainObject.createFood(x: 0.0, y: 0.0));
       when(logic.foodLatency).thenReturn(1.0);
 
-      game.components.add(new Food(0.0, 0.0, "", 1.0, 64.0, 64.0, 1, (food) {
-        return false;
-      }));
+      game.components.add(DomainObject.createFood(x: 0.0, y: 0.0));
       expect((game.components.first as Food).isTouched, false);
       game.input(new Offset(99.0, 99.0));
       expect((game.components.first as Food).isTouched, false);
