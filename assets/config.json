@@ -95,10 +95,10 @@
     },
     {
       "name": "compost",
-      "image_path": "compost_big.png",
+      "image_path": "compost_big_trimmed.png",
       "frame_count": 8,
-      "image_width": 173,
-      "image_height": 182
+      "image_width": 110,
+      "image_height": 123
     }
   ]
 }
