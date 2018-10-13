@@ -17,7 +17,7 @@ main() async {
   Config config = Config.fromJson(jsonDecode(stringConfig));
   Random random = new Random();
   FoodProvider foodProvider = new FoodProvider(config.foodConfigs, random);
-  GameLogic gameLogic = new GameLogic(config, 1.0, foodProvider);
+  GameLogic gameLogic = new GameLogic(config, foodProvider, random);
   Game game = new Game(gameLogic);
   new Main(engine, game);
 }

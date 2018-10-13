@@ -1,5 +1,5 @@
-import 'package:bumshakalaka/assert.dart';
 import 'package:bumshakalaka/logic/game_logic.dart';
+import 'package:bumshakalaka/util/assert.dart';
 import 'package:flame/components/animation_component.dart';
 
 class Target extends AnimationComponent {

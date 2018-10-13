@@ -57,7 +57,7 @@ void main() {
       when(logic.getNextFood(any)).thenReturn(DomainObject.createFood());
 
       game.gameStarted = true;
-      when(logic.foodLatency).thenReturn(1.0);
+      when(logic.foodLatency()).thenReturn(1.0);
       game.update(1.0);
       widget.expect(game.components.length, 1);
       game.update(1.0);

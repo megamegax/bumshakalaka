@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:bumshakalaka/config/config.dart';
@@ -15,7 +16,10 @@ class Coordinates {
 
 class GameLogic extends Logic {
   final Config _config;
+
   final FoodProvider _foodProvider;
+
+  final Random _random;
 
   final Map<String, Coordinates> _targetCoordinates = {
     "dumpster": new Coordinates(190.0, 550.0),
@@ -24,10 +28,12 @@ class GameLogic extends Logic {
     "compost": new Coordinates(100.0, 550.0)
   };
 
-  GameLogic(this._config, this.foodLatency, this._foodProvider);
+  GameLogic(this._config, this._foodProvider, this._random);
 
   @override
-  double foodLatency;
+  double foodLatency() {
+    return _random.nextDouble() + 2.0;
+  }
 
   @override
   int feedFoodTarget(Target target, Food food) {

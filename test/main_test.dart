@@ -39,7 +39,7 @@ void main() {
       })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, (food) {
         return false;
       }));
-      when(logic.foodLatency).thenReturn(1.0);
+      when(logic.foodLatency()).thenReturn(1.0);
 
       new Main(engine, game);
       widget.expect(verify(engine.disableAudioLog()).callCount, 1);
@@ -57,7 +57,7 @@ void main() {
       })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, (food) {
         return false;
       }));
-      when(logic.foodLatency).thenReturn(1.0);
+      when(logic.foodLatency()).thenReturn(1.0);
 
       new Main(engine, game);
       widget.expect(verify(engine.loadAudio(any)).callCount, 1);
@@ -76,7 +76,7 @@ void main() {
       })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, (food) {
         return false;
       }));
-      when(logic.foodLatency).thenReturn(1.0);
+      when(logic.foodLatency()).thenReturn(1.0);
 
       new Main(engine, game);
       widget.expect(verify(engine.loadAllImages(any)).callCount, 1);
@@ -95,7 +95,7 @@ void main() {
       })).thenReturn(new Food(1.0, 1.0, "dog.png", 10.0, 64.0, 64.0, 1, (food) {
         return false;
       }));
-      when(logic.foodLatency).thenReturn(1.0);
+      when(logic.foodLatency()).thenReturn(1.0);
 
       new Main(engine, game);
       widget.expect(verify(engine.addGestureRecognizer(any)).callCount, 1);

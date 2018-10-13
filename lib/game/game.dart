@@ -1,10 +1,10 @@
 import 'dart:ui';
 
-import 'package:bumshakalaka/assert.dart';
 import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/game/handler/drag_handler.dart';
 import 'package:bumshakalaka/logic/logic.dart';
 import 'package:bumshakalaka/target/target.dart';
+import 'package:bumshakalaka/util/assert.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
@@ -42,7 +42,7 @@ class Game extends BaseGame {
   }
 
   void _addFood(double t) {
-    if (_creationTimer >= logic.foodLatency) {
+    if (_creationTimer >= logic.foodLatency()) {
       _creationTimer = 0.0;
       Function destroyAction = (Food food) {
         if (food.y > logic.screenSize.height) {

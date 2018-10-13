@@ -9,8 +9,9 @@ abstract class Logic {
   Duration elapsedTime;
   List<Target> targets;
   int earthState;
-  double foodLatency;
   Size screenSize;
+
+  double foodLatency();
 
   void start(Size screenSize);
 
