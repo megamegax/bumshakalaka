@@ -40,6 +40,7 @@ class Game extends BaseGame {
       _printGameOver(canvas);
       _printCongratPlayer(canvas);
       _printHowMuchPlayerSaved(canvas);
+      logic.gameOver();
     }
   }
 

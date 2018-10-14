@@ -9,6 +9,7 @@ import 'package:bumshakalaka/history/score_store.dart';
 import 'package:bumshakalaka/logic/logic.dart';
 import 'package:bumshakalaka/logic/speed_calculator.dart';
 import 'package:bumshakalaka/target/target.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class Coordinates {
   final double x;
@@ -24,9 +25,10 @@ class GameLogic extends Logic {
   SpeedCalculator _speedCalculator;
   DateTime _startTime;
   ScoreStore _scoreStore;
+  FirebaseAnalytics analytics;
 
   GameLogic(this._config, this._foodProvider, this._random,
-      this._speedCalculator, this._scoreStore);
+      this._speedCalculator, this._scoreStore, this.analytics);
 
   @override
   double foodLatency() {
@@ -40,8 +42,10 @@ class GameLogic extends Logic {
         targets.firstWhere((target) => target.name == targetString);
     if (goodTarget == target) {
       _scoreStore.incrementScore(1);
+      analytics.logEvent(name: "foodMatch");
       return 1;
     } else {
+      analytics.logEvent(name: "foodDismatch");
       _scoreStore.decrementScore(1);
       return -1;
     }
@@ -58,6 +62,7 @@ class GameLogic extends Logic {
   @override
   int missedFood(Food food) {
     _scoreStore.decrementScore(1);
+    analytics.logEvent(name: "missedFood");
     return -1;
   }
 
@@ -121,5 +126,10 @@ class GameLogic extends Logic {
   @override
   int getSuccessfulPlacementCount() {
     return _scoreStore.retrieveSuccessfulPlacement();
+  }
+
+  @override
+  void gameOver() {
+    analytics.logPostScore(score: _scoreStore.retrieveTotalScore());
   }
 }

@@ -9,27 +9,30 @@ import 'package:bumshakalaka/game/game.dart';
 import 'package:bumshakalaka/history/score_store.dart';
 import 'package:bumshakalaka/logic/game_logic.dart';
 import 'package:bumshakalaka/logic/speed_calculator.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 main() async {
+  FirebaseAnalytics analytics = new FirebaseAnalytics();
+  analytics.logAppOpen();
   await Flame.util.initialDimensions();
   var config = await _loadConfig();
-  var gameLogic = _createGameLogic(config);
+  var gameLogic = _createGameLogic(config,analytics);
   var flameWrapper = new FlameWrapper();
   var game = new Game(gameLogic);
   new Main(flameWrapper, game);
 }
 
-GameLogic _createGameLogic(Config config) {
+GameLogic _createGameLogic(Config config, FirebaseAnalytics analytics) {
   var random = new Random();
   var foodProvider = new FoodProvider(config.foodConfigs, random);
   var speedCalculator = new SpeedCalculator(40.0, 5.0);
   var scoreStore = new ScoreStore();
-  var gameLogic =
-      new GameLogic(config, foodProvider, random, speedCalculator, scoreStore);
+  var gameLogic = new GameLogic(
+      config, foodProvider, random, speedCalculator, scoreStore, analytics);
   return gameLogic;
 }
 

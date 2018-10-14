@@ -14,6 +14,8 @@ abstract class Logic {
 
   void start(Size screenSize);
 
+  void gameOver();
+  
   int feedFoodTarget(Target target, Food food);
 
   int missedFood(Food food);
