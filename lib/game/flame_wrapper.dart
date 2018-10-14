@@ -1,9 +1,12 @@
 import 'dart:ui';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/gestures.dart';
 
 class FlameWrapper {
+  AudioPlayer player;
+
   void disableAudioLog() {
     Flame.audio.disableLog();
   }
@@ -20,8 +23,9 @@ class FlameWrapper {
     Flame.util.addGestureRecognizer(gestureRecognizer);
   }
 
-  void playAudio(String audioFile) {
-    Flame.audio.play(audioFile, volume: 1.0);
+  void playAudio(String audioFile) async {
+    player = await Flame.audio.play(audioFile, volume: 1.0);
+    player.setReleaseMode(ReleaseMode.LOOP);
   }
 
   Future<Size> initialDimensions() async {

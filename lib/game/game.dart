@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bumshakalaka/Sprite.dart';
 import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/game/component/window.dart';
+import 'package:bumshakalaka/game/flame_wrapper.dart';
 import 'package:bumshakalaka/game/handler/drag_handler.dart';
 import 'package:bumshakalaka/logic/logic.dart';
 import 'package:bumshakalaka/target/target.dart';
@@ -14,19 +15,21 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:vibrate/vibrate.dart';
 
-class Game extends BaseGame {
+class Game extends BaseGame with WidgetsBindingObserver {
   Logic logic;
-
   double _creationTimer = 0.0;
   bool init = false;
   bool gameStarted = false;
   Window _window;
+  FlameWrapper _engine;
   bool _hasToUpdateWindow = true;
   bool _gameEnded = false;
 
-  Game(Logic logic) {
+  Game(Logic logic, FlameWrapper engine) {
     Assert.notNull(logic, "Logic must not be null!");
+    Assert.notNull(engine, "Engine must not be null!");
     this.logic = logic;
+    this._engine = engine;
   }
 
   @override
@@ -56,6 +59,19 @@ class Game extends BaseGame {
       }
     }
     super.update(t);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.paused:
+        _engine.player.pause();
+        break;
+      case AppLifecycleState.resumed:
+        _engine.player.resume();
+        break;
+      default:
+    }
   }
 
   void _addFood(double t) {
@@ -146,6 +162,7 @@ class Game extends BaseGame {
     this.size = screenSize;
     logic.start(screenSize);
     this.gameStarted = true;
+    WidgetsBinding.instance.addObserver(this);
   }
 
   void _isFoodDragedToTarget(Food component) {

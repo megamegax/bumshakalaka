@@ -21,7 +21,7 @@ void main() {
   setUp(() {
     engine = new MockFlameWrapper();
     logic = new MockLogic();
-    game = new Game(logic);
+    game = new Game(logic, engine);
   });
 
   group("Main", () {

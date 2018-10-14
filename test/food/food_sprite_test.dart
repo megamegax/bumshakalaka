@@ -1,4 +1,5 @@
 import 'package:bumshakalaka/food/food.dart';
+import 'package:bumshakalaka/game/flame_wrapper.dart';
 import 'package:bumshakalaka/game/game.dart';
 import 'package:bumshakalaka/logic/logic.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,16 @@ import '../util/domain_object.dart';
 
 class MockLogic extends Mock implements Logic {}
 
+class MockFlameWrapper extends Mock implements FlameWrapper {}
+
 void main() async {
   Game game;
   MockLogic logic;
+  MockFlameWrapper engine;
   setUp(() {
     logic = new MockLogic();
-    game = new Game(logic);
+    engine = new MockFlameWrapper();
+    game = new Game(logic, engine);
   });
 
   testWidgets('FoodSprite Constructor X must not be null!',

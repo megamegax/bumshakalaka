@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
@@ -14,16 +15,35 @@ import 'package:flame/flame.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 
 main() async {
+  bool isInDebugMode = false;
+  FlutterError.onError = (FlutterErrorDetails details) {
+    if (isInDebugMode) {
+      FlutterError.dumpErrorToConsole(details);
+    } else {
+      Zone.current.handleUncaughtError(details.exception, details.stack);
+    }
+  };
+  await FlutterCrashlytics().initialize();
+  runZoned<Future<Null>>(() async {
+    startApp();
+  }, onError: (error, stackTrace) async {
+    await FlutterCrashlytics()
+        .reportCrash(error, stackTrace, forceCrash: false);
+  });
+}
+
+void startApp() async {
   FirebaseAnalytics analytics = new FirebaseAnalytics();
   analytics.logAppOpen();
   await Flame.util.initialDimensions();
   var config = await _loadConfig();
-  var gameLogic = _createGameLogic(config,analytics);
-  var flameWrapper = new FlameWrapper();
-  var game = new Game(gameLogic);
-  new Main(flameWrapper, game);
+  var gameLogic = _createGameLogic(config, analytics);
+  var engine = new FlameWrapper();
+  var game = new Game(gameLogic, engine);
+  new Main(engine, game);
 }
 
 GameLogic _createGameLogic(Config config, FirebaseAnalytics analytics) {

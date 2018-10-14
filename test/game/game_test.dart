@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart' as widget;
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+import '../food/food_sprite_test.dart';
 import '../test_assets_bundle.dart';
 import '../util/domain_object.dart';
 
@@ -14,15 +15,19 @@ class MockLogic extends Mock implements Logic {}
 void main() {
   Game game;
   MockLogic logic;
-
+  MockFlameWrapper engine;
   setUp(() {
     logic = new MockLogic();
-    game = new Game(logic);
+    engine = new MockFlameWrapper();
+    game = new Game(logic, engine);
   });
 
   group("Constructor", () {
     test("logic should not be null", () {
-      expect(() => new Game(null), throwsArgumentError);
+      expect(() => new Game(null, engine), throwsArgumentError);
+    });
+    test("engine should not be null", () {
+      expect(() => new Game(logic, null), throwsArgumentError);
     });
   });
   group("update", () {
@@ -78,8 +83,9 @@ void main() {
 
   group("input", () {
     logic = new MockLogic();
-    game = new Game(logic);
-
+    engine = new MockFlameWrapper();
+    game = new Game(logic, engine);
+    
     widget.testWidgets('should detect currently tapped food',
         (widget.WidgetTester tester) async {
       await tester.pumpWidget(new MaterialApp(
