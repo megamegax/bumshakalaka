@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:bumshakalaka/Sprite.dart';
 import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/game/component/window.dart';
 import 'package:bumshakalaka/game/flame_wrapper.dart';
@@ -9,13 +6,14 @@ import 'package:bumshakalaka/logic/logic.dart';
 import 'package:bumshakalaka/target/target.dart';
 import 'package:bumshakalaka/util/assert.dart';
 import 'package:flame/components/component.dart';
-import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/gestures.dart';
+import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:vibrate/vibrate.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 
-class Game extends BaseGame with WidgetsBindingObserver {
+class Game extends BaseGame with WidgetsBindingObserver, PanDetector {
   Logic logic;
   double _creationTimer = 0.0;
   bool init = false;
@@ -96,8 +94,9 @@ class Game extends BaseGame with WidgetsBindingObserver {
   void _addBackground() {
     if (!init) {
       add(new SpriteComponent.rectangle(
-          logic.screenSize.width, logic.screenSize.height, "walls.png"));
+          logic.screenSize.width, logic.screenSize.height, "walls"));
     }
+    //  add(new SpriteComponent.rectangle(200, 400, "walls.png"));
   }
 
   void _addTargets() {
@@ -109,6 +108,11 @@ class Game extends BaseGame with WidgetsBindingObserver {
         init = true;
       }
     }
+  }
+
+  @override
+  void onPanUpdate(DragUpdateDetails info) {
+    //   input(info.localPosition);
   }
 
   Drag input(Offset event) {
@@ -195,7 +199,8 @@ class Game extends BaseGame with WidgetsBindingObserver {
   void _endGame() {
     for (Component component in components) {
       if (component is Sprite) {
-        component.toDestroy = true;
+        component.onDestroy();
+        //component.toDestroy = true;
         // TODO ouf of for cycle?
         _gameEnded = true;
       }
@@ -228,16 +233,19 @@ class Game extends BaseGame with WidgetsBindingObserver {
 
   void _printCurrentScore(Canvas canvas) {
     var text = logic.getTotalScore().toString();
-    var textPainter = _createTextPainter(text);
-    textPainter.paint(canvas, new Offset(10.0, 20.0));
+    //var textPainter = _createTextPainter(text);
+    //textPainter.paint(canvas, new Offset(10.0, 20.0));
   }
 
   TextPainter _createTextPainter(String text, [double fontSize = 48.0]) {
-    return Flame.util.text(text,
-        fontSize: fontSize,
-        color: Colors.white,
-        fontFamily: 'bitmapfont',
-        textAlign: TextAlign.center);
+    return TextPainter(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: text,
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'bitmapfont',
+                fontSize: fontSize)));
   }
 
   void _printText(Canvas canvas, String text, Offset offset,

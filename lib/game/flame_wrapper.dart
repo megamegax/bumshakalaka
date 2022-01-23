@@ -12,7 +12,7 @@ class FlameWrapper {
   }
 
   void loadAudio(String audioPath) {
-    Flame.audio.load(audioPath);
+    //Flame.audio.load(audioPath);
   }
 
   void loadAllImages(List<String> imagePaths) {
