@@ -2,18 +2,19 @@ import 'package:bumshakalaka/food/food.dart';
 import 'package:bumshakalaka/game/component/window.dart';
 import 'package:bumshakalaka/game/flame_wrapper.dart';
 import 'package:bumshakalaka/game/handler/drag_handler.dart';
+import 'package:bumshakalaka/logic/game_logic.dart';
 import 'package:bumshakalaka/logic/logic.dart';
 import 'package:bumshakalaka/target/target.dart';
 import 'package:bumshakalaka/util/assert.dart';
-import 'package:flame/components/component.dart';
+import 'package:flame/components.dart';
 import 'package:flame/game.dart';
-import 'package:flame/gestures.dart';
+import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 
-class Game extends BaseGame with WidgetsBindingObserver, PanDetector {
+class MyGame extends FlameGame with WidgetsBindingObserver, PanDetector {
   Logic logic;
   double _creationTimer = 0.0;
   bool init = false;
@@ -22,17 +23,28 @@ class Game extends BaseGame with WidgetsBindingObserver, PanDetector {
   FlameWrapper _engine;
   bool _hasToUpdateWindow = true;
   bool _gameEnded = false;
+  Size screenSize;
 
-  Game(Logic logic, FlameWrapper engine) {
+  MyGame(GameLogic logic, FlameWrapper engine) {
     Assert.notNull(logic, "Logic must not be null!");
     Assert.notNull(engine, "Engine must not be null!");
     this.logic = logic;
     this._engine = engine;
+    pauseEngine();
+    engine.playAudio("megaman.mp3");
+  }
+
+  @override
+  Future<void> onLoad() {
+    super.onLoad();
+    screenSize = Size(size[0], size[1]);
+    start();
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
+
     if (!_gameEnded) {
       _printCurrentScore(canvas);
     }
@@ -63,20 +75,20 @@ class Game extends BaseGame with WidgetsBindingObserver, PanDetector {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.paused:
-        _engine.player.pause();
+        pauseEngine();
         break;
       case AppLifecycleState.resumed:
-        _engine.player.resume();
+        resumeEngine();
         break;
       default:
     }
   }
 
-  void _addFood(double t) {
+  void _addFood(double t) async {
     if (_creationTimer >= logic.foodLatency()) {
       _creationTimer = 0.0;
       Function destroyAction = (Food food) {
-        if (food.y > logic.screenSize.height) {
+        if (food.y > logic.screenSize.y) {
           logic.missedFood(food);
           return true;
         } else {
@@ -86,17 +98,18 @@ class Game extends BaseGame with WidgetsBindingObserver, PanDetector {
           return false;
         }
       };
-      add(logic.getNextFood(destroyAction));
+
+      add(await logic.getNextFood(destroyAction, images));
     }
     _creationTimer += t;
   }
 
-  void _addBackground() {
+  void _addBackground() async {
     if (!init) {
-      add(new SpriteComponent.rectangle(
-          logic.screenSize.width, logic.screenSize.height, "walls"));
+      add(new SpriteComponent(
+          size: Vector2(logic.screenSize.x, logic.screenSize.y),
+          sprite: await Sprite.load("walls.png")));
     }
-    //  add(new SpriteComponent.rectangle(200, 400, "walls.png"));
   }
 
   void _addTargets() {
@@ -111,12 +124,13 @@ class Game extends BaseGame with WidgetsBindingObserver, PanDetector {
   }
 
   @override
-  void onPanUpdate(DragUpdateDetails info) {
-    //   input(info.localPosition);
+  void onPanDown(DragDownInfo info) {
+    super.onPanDown(info);
+    input(info.raw.localPosition);
   }
 
   Drag input(Offset event) {
-    for (var component in components) {
+    for (var component in children) {
       if ((component is Food)) {
         if (_isComponentTapped(event, component)) {
           component.isTouched = true;
@@ -129,7 +143,7 @@ class Game extends BaseGame with WidgetsBindingObserver, PanDetector {
   }
 
   void _handleDragUpdate(DragUpdateDetails details) {
-    components.forEach((component) {
+    children.forEach((component) {
       if (component is Food) {
         if (component.isTouched) {
           component.y = details.globalPosition.dy - 32;
@@ -140,7 +154,7 @@ class Game extends BaseGame with WidgetsBindingObserver, PanDetector {
   }
 
   void _handleDragEnd(DragEndDetails details) {
-    components.forEach((component) {
+    children.forEach((component) {
       if (component is Food) {
         if (component.isTouched) {
           _isFoodDragedToTarget(component);
@@ -162,9 +176,9 @@ class Game extends BaseGame with WidgetsBindingObserver, PanDetector {
       target.y + target.height >= component.y &&
       target.y <= component.y + component.height;
 
-  void start(Size screenSize) {
-    this.size = screenSize;
-    logic.start(screenSize);
+  void start() {
+    resumeEngine();
+    logic.start(Vector2(screenSize.width, screenSize.height), images);
     this.gameStarted = true;
     WidgetsBinding.instance.addObserver(this);
   }
@@ -181,12 +195,13 @@ class Game extends BaseGame with WidgetsBindingObserver, PanDetector {
     }
   }
 
-  void _updateWindow() {
+  void _updateWindow() async {
     if (_hasToUpdateWindow) {
-      _window = new Window(logic.screenSize.width / 2,
-          logic.screenSize.height / 3, logic.getWindowName());
-      _window.x = logic.screenSize.width / 2.0 - _window.width / 2 + 45;
-      _window.y = logic.screenSize.height / 2.0 - _window.height / 2 - 60;
+      final windowSprite = await Sprite.load(logic.getWindowName());
+      _window = new Window(
+          logic.screenSize.x / 2, logic.screenSize.y / 3, windowSprite);
+      _window.x = logic.screenSize.x / 2.0 - logic.screenSize.x * 0.2;
+      _window.y = logic.screenSize.y / 2.0 - logic.screenSize.x * 0.3;
       add(_window);
       _hasToUpdateWindow = false;
     }
@@ -197,10 +212,10 @@ class Game extends BaseGame with WidgetsBindingObserver, PanDetector {
   }
 
   void _endGame() {
-    for (Component component in components) {
+    for (Component component in children) {
       if (component is Sprite) {
-        component.onDestroy();
-        //component.toDestroy = true;
+        component.onRemove();
+
         // TODO ouf of for cycle?
         _gameEnded = true;
       }
@@ -231,26 +246,30 @@ class Game extends BaseGame with WidgetsBindingObserver, PanDetector {
     _printText(canvas, finalScoreText, new Offset(10.0, 20.0));
   }
 
-  void _printCurrentScore(Canvas canvas) {
+  void _printCurrentScore(Canvas canvas, [double fontSize = 48.0]) {
     var text = logic.getTotalScore().toString();
-    //var textPainter = _createTextPainter(text);
-    //textPainter.paint(canvas, new Offset(10.0, 20.0));
+    var textPainter = _createTextPainter(text);
+    textPainter.layout();
+    textPainter.text = TextSpan(
+        text: text ?? "",
+        style: TextStyle(
+            color: Colors.white, fontFamily: 'bitmapfont', fontSize: fontSize));
+
+    textPainter.paint(canvas, new Offset(10.0, 20.0));
   }
 
   TextPainter _createTextPainter(String text, [double fontSize = 48.0]) {
-    return TextPainter(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-            text: text,
-            style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'bitmapfont',
-                fontSize: fontSize)));
+    return TextPainter(textAlign: TextAlign.center);
   }
 
   void _printText(Canvas canvas, String text, Offset offset,
       [double fontSize = 48.0]) {
     var textPainter = _createTextPainter(text, fontSize);
+    textPainter.layout();
+    textPainter.text = TextSpan(
+        text: text ?? "",
+        style: TextStyle(
+            color: Colors.white, fontFamily: 'bitmapfont', fontSize: fontSize));
     textPainter.paint(canvas, offset);
   }
 }

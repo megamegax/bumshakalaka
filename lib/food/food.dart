@@ -1,12 +1,14 @@
-import 'package:bumshakalaka/Sprite.dart';
-import 'package:bumshakalaka/util/assert.dart';
-import 'package:flame/components/animation_component.dart';
+import 'dart:ui';
 
-class Food extends AnimationComponent implements Sprite {
-  String imagePath;
+import 'package:bumshakalaka/util/assert.dart';
+import 'package:flame/components.dart';
+import 'package:flame/components.dart';
+import 'package:flame/sprite.dart';
+
+class Food extends SpriteComponent {
+  Sprite sprite;
+  String imageName;
   double speed;
-  double animationSpeed;
-  int frameCount;
   double imageWidth;
   double imageHeight;
   bool isTouched;
@@ -14,25 +16,19 @@ class Food extends AnimationComponent implements Sprite {
 
   bool toDestroy = false;
 
-  Food(double x, double y, this.imagePath, this.speed, this.imageWidth,
-      this.imageHeight, frameCount, this.destroyAction)
-      : super.sequenced(imageWidth, imageHeight, imagePath, 1,
-            textureWidth: imageWidth, textureHeight: imageHeight) {
+  Food(double x, double y, this.imageName, this.sprite, this.speed,
+      this.imageWidth, this.imageHeight, frameCount, this.destroyAction)
+      : super(size: Vector2(imageWidth, imageHeight), sprite: sprite) {
     Assert.notNull(x, 'X must not be null!');
     Assert.notNull(y, 'Y must not be null!');
     Assert.notNull(frameCount, 'frameCount must not be null!');
     this.x = x;
     this.y = y;
     this.isTouched = false;
-    this.animationSpeed = 0.97;
-    this.frameCount = frameCount;
-    this.animation.stepTime = animationSpeed / 7;
   }
 
   @override
-  int priority() {
-    return 1;
-  }
+  int get priority => 1;
 
   @override
   bool destroy() {
@@ -56,26 +52,20 @@ class Food extends AnimationComponent implements Sprite {
       identical(this, other) ||
       other is Food &&
           runtimeType == other.runtimeType &&
-          imagePath == other.imagePath &&
           speed == other.speed &&
-          animationSpeed == other.animationSpeed &&
-          frameCount == other.frameCount &&
           imageWidth == other.imageWidth &&
           imageHeight == other.imageHeight &&
           isTouched == other.isTouched;
 
   @override
   int get hashCode =>
-      imagePath.hashCode ^
       speed.hashCode ^
-      animationSpeed.hashCode ^
-      frameCount.hashCode ^
       imageWidth.hashCode ^
       imageHeight.hashCode ^
       isTouched.hashCode;
 
   @override
   String toString() {
-    return 'Food{imagePath: $imagePath, speed: $speed, animationSpeed: $animationSpeed, frameCount: $frameCount, imageWidth: $imageWidth, imageHeight: $imageHeight, isTouched: $isTouched}';
+    return 'Food';
   }
 }

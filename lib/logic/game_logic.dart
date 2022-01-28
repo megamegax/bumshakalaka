@@ -9,6 +9,10 @@ import 'package:bumshakalaka/history/score_store.dart';
 import 'package:bumshakalaka/logic/logic.dart';
 import 'package:bumshakalaka/logic/speed_calculator.dart';
 import 'package:bumshakalaka/target/target.dart';
+import 'package:flame/assets.dart';
+import 'package:flame/extensions.dart';
+import 'package:flame/game.dart';
+import 'package:flame/sprite.dart';
 
 class Coordinates {
   final double x;
@@ -35,7 +39,7 @@ class GameLogic extends Logic {
 
   @override
   int feedFoodTarget(Target target, Food food) {
-    var targetString = _foodProvider.getTarget(food.imagePath);
+    var targetString = _foodProvider.getTarget(food.imageName);
     var goodTarget =
         targets.firstWhere((target) => target.name == targetString);
     if (goodTarget == target) {
@@ -48,11 +52,14 @@ class GameLogic extends Logic {
   }
 
   @override
-  Food getNextFood(bool Function(Food food) destroyAction) {
+  Future<Food> getNextFood(
+      bool Function(Food food) destroyAction, Images images) async {
     var speed = _speedCalculator.calculateSpeed(
         _scoreStore.retrieveTotalScore(), _startTime);
+
     var food = _foodProvider.getFood();
-    return _createFood(food, speed, destroyAction);
+
+    return await _createFood(food, speed, destroyAction, images);
   }
 
   @override
@@ -62,25 +69,29 @@ class GameLogic extends Logic {
   }
 
   @override
-  void start(Size screenSize) {
+  void start(Vector2 screenSize, Images images) async {
     this.screenSize = screenSize;
     _startTime = DateTime.now();
     Map<String, Coordinates> targetCoordinates = {
-      "dumpster": new Coordinates(190.0, screenSize.height - 150.0),
-      "dog": new Coordinates(260.0, screenSize.height - 210.0),
-      "fridge": new Coordinates(110.0, screenSize.height - 250.0),
-      "compost": new Coordinates(20.0, screenSize.height - 110)
+      "dumpster": new Coordinates(190.0, screenSize.y - 150.0),
+      "dog": new Coordinates(screenSize.x * 0.6, screenSize.y - 210.0),
+      "fridge": new Coordinates(screenSize.x * 0.25, screenSize.y - 250.0),
+      "compost": new Coordinates(20.0, screenSize.y - 130)
     };
+    List<Target> mappedTargets = [];
+    for (var tc in _config.targetConfigs) {
+      final target = new Target(
+          tc.name,
+          targetCoordinates[tc.name],
+          await images.load(tc.imagePath),
+          tc.frameCount,
+          tc.imageWidth.toDouble(),
+          tc.imageHeight.toDouble());
 
-    this.targets = _config.targetConfigs
-        .map((tc) => new Target(
-            tc.name,
-            targetCoordinates[tc.name],
-            tc.imagePath,
-            tc.frameCount,
-            tc.imageWidth.toDouble(),
-            tc.imageHeight.toDouble()))
-        .toList();
+      mappedTargets.add(target);
+    }
+
+    this.targets = mappedTargets;
   }
 
   @override
@@ -88,12 +99,20 @@ class GameLogic extends Logic {
     return _scoreStore.retrieveTotalScore();
   }
 
-  Food _createFood(
-      FoodDto food, double speed, bool Function(Food food) destroyAction) {
+  Future<Food> _createFood(FoodDto food, double speed,
+      bool Function(Food food) destroyAction, Images images) async {
     double xCoord =
-        _random.nextDouble() * (this.screenSize.width - food.imageWidth);
-    return Food(xCoord, 0.0, food.imagePath, speed, food.imageWidth.toDouble(),
-        food.imageHeight.toDouble(), food.frameCount, destroyAction);
+        _random.nextDouble() * (this.screenSize.x - food.imageWidth);
+    return Food(
+        xCoord,
+        0.0,
+        food.imagePath,
+        await Sprite.load(food.imagePath, srcSize: Vector2.all(74)),
+        speed,
+        food.imageWidth.toDouble(),
+        food.imageHeight.toDouble(),
+        food.frameCount,
+        destroyAction);
   }
 
   @override
